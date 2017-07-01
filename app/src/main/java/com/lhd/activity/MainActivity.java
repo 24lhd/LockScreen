@@ -14,7 +14,7 @@ import android.util.Log;
 import com.lhd.demolock.R;
 import com.lhd.service.ServiceLockOnOff;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
     public static void showLog(String logContent) {
         Log.e("duong", logContent);
@@ -24,15 +24,14 @@ public class MainActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        xinQuyen(Manifest.permission.SYSTEM_ALERT_WINDOW,1);
-        xinQuyen(Manifest.permission.DISABLE_KEYGUARD,1);
-        xinQuyen(Manifest.permission.READ_CONTACTS,1);
-        KeyguardManager keyguardManager = (KeyguardManager)getSystemService(Activity.KEYGUARD_SERVICE);
+        xinQuyen(Manifest.permission.SYSTEM_ALERT_WINDOW, 1);
+        xinQuyen(Manifest.permission.DISABLE_KEYGUARD, 1);
+        xinQuyen(Manifest.permission.READ_CONTACTS, 1);
+        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE);
         KeyguardManager.KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
         lock.disableKeyguard();
-        Intent intent=new Intent(this, ServiceLockOnOff.class);
+        Intent intent = new Intent(this, ServiceLockOnOff.class);
         startService(intent);
-
     }
 
     private void xinQuyen(String quyen, int indexResult) {
