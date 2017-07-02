@@ -1,8 +1,6 @@
 package com.lhd.activity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.KeyguardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -12,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.lhd.demolock.R;
-import com.lhd.service.ServiceLockOnOff;
+import com.lhd.service.ServiceListenOnOff;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,14 +25,11 @@ public class MainActivity extends AppCompatActivity {
         xinQuyen(Manifest.permission.SYSTEM_ALERT_WINDOW, 1);
         xinQuyen(Manifest.permission.DISABLE_KEYGUARD, 1);
         xinQuyen(Manifest.permission.READ_CONTACTS, 1);
-        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE);
-        KeyguardManager.KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
-        lock.disableKeyguard();
-        Intent intent = new Intent(this, ServiceLockOnOff.class);
+        Intent intent = new Intent(this, ServiceListenOnOff.class);
         startService(intent);
     }
 
-    private void xinQuyen(String quyen, int indexResult) {
+    public void xinQuyen(String quyen, int indexResult) {
         if (ContextCompat.checkSelfPermission(this, quyen)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, quyen)) {
@@ -43,5 +38,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
 }

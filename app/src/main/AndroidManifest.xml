@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.lhd.service.ServiceLockOnOff" />
+        <service android:name="com.lhd.service.ServiceListenOnOff" />
+        <service android:name="com.lhd.service.ShowLock" />
     </application>
 
 </manifest>
