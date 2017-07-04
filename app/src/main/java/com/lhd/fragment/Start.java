@@ -23,8 +23,9 @@ public class Start extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-         viewContent = inflater.inflate(R.layout.layout_start, null);
+        viewContent = inflater.inflate(R.layout.layout_start, null);
         main = (Main) getActivity();
+        main.getSupportActionBar().hide();
         setView();
         return viewContent;
     }
@@ -32,10 +33,10 @@ public class Start extends Fragment {
     private void setView() {
         LayoutInflater inflater = LayoutInflater.from(main);
         View viewEnableLockScreen = inflater.inflate(R.layout.dialog_enable_lockscreen, null);
-        final AlertDialog.Builder builder=new AlertDialog.Builder(main);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(main);
         builder.setView(viewEnableLockScreen);
-        Button button=viewEnableLockScreen.findViewById(R.id.btGotIt_dialog);
-        final AlertDialog alertDialog=  builder.create();
+        Button button = viewEnableLockScreen.findViewById(R.id.btGotIt_dialog);
+        final AlertDialog alertDialog = builder.create();
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

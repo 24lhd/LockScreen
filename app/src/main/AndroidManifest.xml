@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lhd.demolock">
 
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,8 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name="com.lhd.service.ListenOnOff" />
         <service android:name="com.lhd.service.ShowLock" />
+        <receiver android:name="com.lhd.broadcast.BroadcastScreenOnOff">
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON"></action>
+                <action android:name="android.intent.action.SCREEN_OFF"></action>
+                <action android:name="android.intent.action.USER_PRESENT"></action>
+                <action android:name="android.intent.action.USER_UNLOCKED"></action>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

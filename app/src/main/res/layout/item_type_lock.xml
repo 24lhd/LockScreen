@@ -50,10 +50,11 @@
                     android:padding="5dp"
                     android:text="None" />
 
-                <ImageView android:layout_gravity="center"
+                <ImageView
                     android:id="@+id/type_2"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
+                    android:layout_gravity="center"
                     android:scaleType="centerCrop" />
             </LinearLayout>
         </LinearLayout>

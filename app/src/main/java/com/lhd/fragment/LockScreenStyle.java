@@ -14,7 +14,7 @@ import com.lhd.demolock.R;
  * Created by D on 7/4/2017.
  */
 
-public class SelectTypeLock extends Fragment {
+public class LockScreenStyle extends Fragment {
     private View viewContent;
     private Main main;
 
@@ -22,18 +22,9 @@ public class SelectTypeLock extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewContent = inflater.inflate(R.layout.activity_main, null);
-        main = (Main) getActivity();
-//        ImageView imageView1 = viewContent.findViewById(R.id.type_1);
-//        Glide.with(main).load(R.drawable.type_1).into(imageView1);
-//
-//        ImageView imageView2 = viewContent.findViewById(R.id.type_2);
-//        Glide.with(main).load(R.drawable.type_2).into(imageView2);
-//
-//        ImageView imageView3 = viewContent.findViewById(R.id.type_3);
-//        Glide.with(main).load(R.drawable.type_3).into(imageView3);
-//
-//        ImageView imageView4 = viewContent.findViewById(R.id.type_4);
-//        Glide.with(main).load(R.drawable.type_1).into(imageView4);
+//        main = (Main) getActivity();
+//        ImageView imageView=viewContent.findViewById(R.id.im_bg_selected);
+//        Glide.with(main).load(R.drawable.bg_main).into(imageView);
         //setView();
         return viewContent;
     }

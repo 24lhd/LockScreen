@@ -10,4 +10,5 @@
     <color name="layout_start_3">#79c0e6</color>
     <color name="dialog_enable_lockscreen_1">#1c92d2</color>
     <color name="color_view">#cdc8c8</color>
+    <color name="color_none">#00ffffff</color>
 </resources>

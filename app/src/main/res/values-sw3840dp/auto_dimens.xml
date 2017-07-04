@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<dimen name="buttom_digital">840.00dp</dimen>
 	<dimen name="dialog_enable_lockscreen_1">240.00dp</dimen>
 	<dimen name="dialog_enable_lockscreen_2">60.00dp</dimen>
 	<dimen name="dialog_enable_lockscreen_3">180.00dp</dimen>
 	<dimen name="dialog_enable_lockscreen_parding_2">840.00dp</dimen>
 	<dimen name="im_h_hdpi">2616.00dp</dimen>
 	<dimen name="im_w_hdpi">1572.00dp</dimen>
+	<dimen name="layout_margin_demo">60.00dp</dimen>
 	<dimen name="layout_start_margin">300.00dp</dimen>
 	<dimen name="layout_start_parding_1">120.00dp</dimen>
 	<dimen name="layout_start_parding_2">480.00dp</dimen>

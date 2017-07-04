@@ -1,5 +1,7 @@
 package com.lhd.service;
 
+import android.app.Activity;
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -22,17 +24,25 @@ public class ShowLock extends Service {
     private WindowManager windowManager;
     private View view;
     private WindowManager.LayoutParams params;
+    private KeyguardManager keyguardManager;
+    private KeyguardManager.KeyguardLock lock;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;
     }
+
     @Override
     public void onCreate() {
         Main.showLog("ShowLock");
+        keyguardManager = (KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE);
+        lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
         showWindow();
         super.onCreate();
     }
+
+
     private void showWindow() {
         Button btUnLock;
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -41,24 +51,29 @@ public class ShowLock extends Service {
         params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                WindowManager.LayoutParams.TYPE_PHONE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.CENTER;
-        btUnLock = (Button)view.findViewById(R.id.bt_unlock);
+        btUnLock = (Button) view.findViewById(R.id.bt_unlock);
         btUnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Main.showLog("ShowLock stopSelf");
-               stopSelf();
+                stopSelf();
             }
         });
         windowManager.addView(view, params);
+        lock.disableKeyguard();
     }
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        Main.showLog("onDestroy");
         if (view != null) windowManager.removeView(view);
+        super.onDestroy();
+        //   lock.reenableKeyguard();
+
+
     }
 }

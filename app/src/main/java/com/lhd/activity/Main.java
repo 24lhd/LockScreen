@@ -1,11 +1,13 @@
 package com.lhd.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,6 +17,10 @@ import android.util.Log;
 import com.lhd.demolock.R;
 import com.lhd.fragment.SelectTypeLock;
 import com.lhd.service.ListenOnOff;
+import com.orhanobut.hawk.Hawk;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Main extends AppCompatActivity {
 
@@ -28,6 +34,68 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.layout_main);
         checkPermisstion();
         setFragmentStart();
+        checkDrawOverlayPermission();
+//        rung();
+        date24();
+        date12();
+        Hawk.init(this).build();
+//        Hawk.put("duong",new Duong());
+        //   showLog(Hawk.get("duong").toString());
+    }
+
+    class Duong {
+        String ten = "Dương";
+        int tuoi = 21;
+
+        @Override
+        public String toString() {
+            return "Duong{" +
+                    "ten='" + ten + '\'' +
+                    ", tuoi=" + tuoi +
+                    '}';
+        }
+
+        public String getTen() {
+            return ten;
+        }
+
+        public void setTen(String ten) {
+            this.ten = ten;
+        }
+
+        public int getTuoi() {
+            return tuoi;
+        }
+
+        public void setTuoi(int tuoi) {
+            this.tuoi = tuoi;
+        }
+    }
+
+    private void date12() {
+        Date date = new Date();
+        date.setHours(date.getHours());
+        System.out.println(date);
+        SimpleDateFormat simpDate;
+        simpDate = new SimpleDateFormat("h:mm");
+        // System.out.println(simpDate.format(date));
+        showLog(simpDate.format(date));
+    }
+
+    private void date24() {
+        Date date = new Date();
+        date.setHours(date.getHours());
+        System.out.println(date);
+        SimpleDateFormat simpDate;
+        simpDate = new SimpleDateFormat("HH:mm");
+        // System.out.println(simpDate.format(date));
+        showLog(simpDate.format(date));
+    }
+
+    public void rung() {
+        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
     }
 
     private void checkPermisstion() {
@@ -79,6 +147,8 @@ public class Main extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (Settings.canDrawOverlays(this)) {
                     showLog("cho phep");
+                    Intent intent = new Intent(this, ListenOnOff.class);
+                    startService(intent);
                 } else {
                     showLog("khong cho phep");
 
