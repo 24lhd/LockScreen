@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/dialog_enable_lockscreen_1"
+
+            android:gravity="center"
+            android:padding="@dimen/dialog_enable_lockscreen_1"
+            android:text="@string/dialog_enable_lockscreen_1"
+            android:textColor="@color/color_white" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+            android:paddingBottom="@dimen/dialog_enable_lockscreen_2"
+            android:paddingLeft="@dimen/dialog_enable_lockscreen_2"
+            android:paddingRight="@dimen/dialog_enable_lockscreen_2"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_flag"
+                android:layout_centerVertical="true"
+                android:text="@string/dialog_enable_lockscreen_2"
+                android:textColor="#908d8d" />
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/checkbox_huong_dan"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:layout_width="32dp"
+                android:src="@drawable/icon_ban_tay"
+                android:id="@+id/ban_tay"
+                android:layout_toLeftOf="@id/checkbox_huong_dan"
+                android:layout_below="@id/checkbox_huong_dan"
+                android:layout_height="32dp" />
+        </RelativeLayout>
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Help"
+            android:id="@+id/tv_help"
+            android:background="#eaeaea"
+            android:padding="5dp"
+            android:textColor="#616161" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:padding="@dimen/dialog_enable_lockscreen_3"
+            android:background="#f7f7f7"
+            android:layout_height="wrap_content">
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dialog_enable_lockscreen_3"
+                android:textColor="#908d8d" />
+            <TextView
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+                android:text="@string/dialog_enable_lockscreen_4"
+                android:textColor="#908d8d" />
+        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:background="@drawable/shape_dialog_enable_lockscreen_1"
+            android:paddingBottom="@dimen/layout_start_parding_1"
+            android:paddingTop="@dimen/layout_start_parding_1"
+            android:paddingLeft="@dimen/dialog_enable_lockscreen_parding_2"
+            android:layout_marginTop="@dimen/layout_start_margin"
+            android:id="@+id/btGotIt_dialog"
+            android:paddingRight="@dimen/dialog_enable_lockscreen_parding_2"
+            android:textColor="@color/layout_start_1"
+            android:layout_gravity="center"
+            android:text="@string/layout_start_5"
+            android:layout_marginBottom="@dimen/layout_start_parding_1"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

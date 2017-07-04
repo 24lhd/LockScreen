@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">DemoAppLock</string>
+    <string name="layout_start_1">Lock Screen</string>
+    <string name="layout_start_2">Setting for your device</string>
+    <string name="layout_start_3">Find \"lock screen\" and active</string>
+    <string name="layout_start_4">Allow Lock Screen to work  on your device</string>
+    <string name="layout_start_5">Got it</string>
+    <string name="dialog_enable_lockscreen_1">Find and enable lockscreen</string>
+    <string name="dialog_enable_lockscreen_2">[lockscreen]</string>
+    <string name="dialog_enable_lockscreen_3">Tap on the top right hand toggle to enable CMLocker</string>
+    <string name="dialog_enable_lockscreen_4">Attention: You may receive standard privacy warnings. There no need  to worry, no personal data will be collected</string>
+    <string name="setting_text_1">Enable Lock</string>
+    <string name="addPhoto">Setting LockScreen</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="setrect_question">Secret question</string>
+    <string name="sounds">Sounds</string>
+    <string name="item_sounds">Sounds</string>
+    <string name="vibiration">Vibiration</string>
+    <string name="refesh_24h">Use 24 hours format</string>
+    <string name="question_1">Tên con vật bạn yêu nhất ?</string>
+    <string name="question_2">Tên bộ phim bạn thích nhát</string>
+    <string name="question_3">Tên thành phố bạn sinh ra</string>
 </resources>

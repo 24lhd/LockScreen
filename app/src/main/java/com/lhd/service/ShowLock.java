@@ -1,7 +1,5 @@
 package com.lhd.service;
 
-import android.app.Activity;
-import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
@@ -13,7 +11,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.lhd.activity.MainActivity;
+import com.lhd.activity.Main;
 import com.lhd.demolock.R;
 
 /**
@@ -31,11 +29,9 @@ public class ShowLock extends Service {
     }
     @Override
     public void onCreate() {
-        KeyguardManager keyguardManager = (KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE);
-        KeyguardManager.KeyguardLock lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
-        lock.disableKeyguard();
-        MainActivity.showLog("ShowLock");
+        Main.showLog("ShowLock");
         showWindow();
+        super.onCreate();
     }
     private void showWindow() {
         Button btUnLock;
@@ -53,7 +49,7 @@ public class ShowLock extends Service {
         btUnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity.showLog("ShowLock stopSelf");
+                Main.showLog("ShowLock stopSelf");
                stopSelf();
             }
         });

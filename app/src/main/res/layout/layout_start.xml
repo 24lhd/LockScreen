@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/layout_start_1"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Display1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/layout_start_margin"
+        android:text="@string/layout_start_1"
+        android:textColor="@color/color_white" />
+
+    <TextView
+        android:id="@+id/textView"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_start_margin"
+        android:gravity="center"
+        android:text="@string/layout_start_2"
+        android:textColor="@color/color_text_2" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/layout_start_margin"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_layout_start_1"
+        android:padding="@dimen/layout_start_margin"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/layout_start_3"
+            android:textColor="@color/color_white" />
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/layout_start_4"
+            android:textColor="@color/color_text_2" />
+    </LinearLayout>
+    <Button
+        android:layout_width="wrap_content"
+        android:background="@drawable/shape_layout_start_2"
+        android:paddingBottom="@dimen/layout_start_parding_1"
+        android:paddingTop="@dimen/layout_start_parding_1"
+        android:paddingLeft="@dimen/layout_start_parding_2"
+        android:layout_marginTop="@dimen/layout_start_margin"
+        android:paddingRight="@dimen/layout_start_parding_2"
+        android:textColor="@color/color_white"
+        android:layout_gravity="center"
+        android:text="@string/layout_start_5"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dialog_enable_lockscreen_3" />
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+        android:text="@string/dialog_enable_lockscreen_4" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+            android:paddingBottom="@dimen/dialog_enable_lockscreen_2"
+            android:text="@string/question_1" />
+
+        <Switch
+            android:id="@+id/checkbox_huong_dan1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:gravity="left|center" />
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_edit_text_answer"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Body1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/dialog_enable_lockscreen_2"
+            android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+            android:text="@string/question_2" />
+
+        <Switch
+            android:id="@+id/checkbox_huong_dan2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:gravity="left|center" />
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_edit_text_answer"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Body1"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/dialog_enable_lockscreen_2"
+            android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+            android:text="@string/question_3" />
+
+        <Switch
+            android:id="@+id/checkbox_huong_dan3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:gravity="left|center" />
+    </LinearLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:background="@drawable/shape_edit_text_answer"
+        android:padding="10dp"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.AppCompat.Body1"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:text="Submit"
+        android:layout_gravity="center"
+        android:background="@drawable/shape_layout_start_2"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="50dp"
+        android:textColor="@color/color_white"
+        android:paddingRight="50dp"
+        android:layout_height="wrap_content" />
+</LinearLayout>
