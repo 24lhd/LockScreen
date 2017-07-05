@@ -44,6 +44,7 @@ public class FloatIcon extends Service {
         return null;
     }
 
+    ImageView imgBackground;
     private WindowManager windowManager;
     WindowManager.LayoutParams params;
 
@@ -57,13 +58,7 @@ public class FloatIcon extends Service {
         LayoutInflater inflater = LayoutInflater.from(this);
         layout = inflater.inflate(R.layout.lock_screen, null);
         btUnLock = (Button) layout.findViewById(R.id.btn_unlock_screen);
-        ImageView imageView = layout.findViewById(R.id.im_bg_lockscreen);
-        try {
-
-            Glide.with(this).load(((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getDrawImage()).into(imageView);
-        } catch (NullPointerException e) {
-            Glide.with(this).load(R.drawable.bg_main).into(imageView);
-        }
+        imgBackground = layout.findViewById(R.id.im_bg_lockscreen);
         TextView tvDate = layout.findViewById(R.id.txt_date_lockscreen);
         TextView tvTime = layout.findViewById(R.id.txt_time_lockscreen);
         tvDate.setText(Setting.date());
@@ -115,6 +110,12 @@ public class FloatIcon extends Service {
                 Hawk.init(context).build();
                 if (!isShowing && ((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue()) {
                     Main.showLog("ShowLock");
+                    try {
+                        Main.showLog("load " + ((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getDrawImage());
+                        Glide.with(FloatIcon.this).load(((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getDrawImage()).into(imgBackground);
+                    } catch (NullPointerException e) {
+                        Glide.with(FloatIcon.this).load(R.drawable.a19).into(imgBackground);
+                    }
                     ((KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(getPackageName()).disableKeyguard();
                     windowManager.addView(layout, params);
                     isShowing = true;

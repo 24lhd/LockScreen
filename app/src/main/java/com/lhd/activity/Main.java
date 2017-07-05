@@ -28,6 +28,8 @@ public class Main extends AppCompatActivity {
     public static final String IS_RUNG = "IS_RUNG";
     public static final String IS_24H = "IS_24H";
     public static final String IMAGE_BACKGROUND = "IMAGE_BACKGROUND";
+    public static final String INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN = "INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN";
+
 
     public static void showLog(String logContent) {
         Log.e("duong", logContent);
@@ -43,7 +45,7 @@ public class Main extends AppCompatActivity {
         try {
             if (((OnOff) Hawk.get(IS_START)).isTrue()) {
                 setFragmentSetting();
-            }else {
+            } else {
                 setFragmentStart();
             }
         } catch (NullPointerException e) {
@@ -83,7 +85,6 @@ public class Main extends AppCompatActivity {
             this.tuoi = tuoi;
         }
     }
-
 
 
     public void rung() {

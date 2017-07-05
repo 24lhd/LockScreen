@@ -1,5 +1,6 @@
 package com.lhd.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,11 +13,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.lhd.activity.Main;
+import com.lhd.activity.ViewImageBackground;
+import com.lhd.config.Data;
 import com.lhd.demolock.R;
 import com.lhd.object.BackgroundImageLockScreen;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.ArrayList;
 
 /**
  * Created by D on 7/4/2017.
@@ -36,13 +37,6 @@ public class SelectImage extends Fragment {
     }
 
     private void setView() {
-        backgroundImageLockScreens = new ArrayList<>();
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.bg_main));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.bg_main));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.bg_main));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.bg_main));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.bg_main));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.bg_main));
         RecyclerView recyclerView = viewContent.findViewById(R.id.rcv_list_image_to_select);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(main, 2));
@@ -50,7 +44,6 @@ public class SelectImage extends Fragment {
 
     }
 
-    private ArrayList<BackgroundImageLockScreen> backgroundImageLockScreens;
 
     public class ViewHolderImage extends RecyclerView.ViewHolder {
         ImageView imageView;
@@ -82,14 +75,16 @@ public class SelectImage extends Fragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
-            Main.showLog("" + (backgroundImageLockScreens instanceof ArrayList));
-            Main.showLog("" + (backgroundImageLockScreens.get(position).getDrawImage()));
-            Glide.with(main).load(backgroundImageLockScreens.get(position).getDrawImage()).into(((ViewHolderImage) holder).getImageView());
-            // ((ViewHolderImage) holder).getImageView().setImageDrawable(getResources().getDrawable(backgroundImageLockScreens.get(position).getDrawImage()));
+            Glide.with(main).load(Data.getBackgroundImageLockScreens().get(position).getDrawImage()).into(((ViewHolderImage) holder).getImageView());
             ((ViewHolderImage) holder).getImageView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Hawk.put(Main.IMAGE_BACKGROUND,new BackgroundImageLockScreen(backgroundImageLockScreens.get(position).getDrawImage()));
+                    Intent intent=new Intent(main,ViewImageBackground.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putInt(Main.INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN,position);
+                    intent.putExtras(bundle);
+                    main.startActivity(intent);
+                    Hawk.put(Main.IMAGE_BACKGROUND,new BackgroundImageLockScreen(Data.getBackgroundImageLockScreens().get(position).getDrawImage()));
                 }
             });
         }
@@ -97,7 +92,7 @@ public class SelectImage extends Fragment {
 
         @Override
         public int getItemCount() {
-            return backgroundImageLockScreens.size();
+            return Data.getBackgroundImageLockScreens().size();
         }
     }
 }

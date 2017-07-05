@@ -40,7 +40,11 @@
             android:showOnLockScreen="true">
 
         </activity>
+        <activity
+            android:name="com.lhd.activity.ViewImageBackground"
+             android:theme="@style/Theme.AppCompat.NoActionBar">
 
+        </activity>
     </application>
 
 </manifest>
