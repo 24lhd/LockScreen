@@ -1,6 +1,5 @@
 package com.lhd.service;
 
-import android.app.Activity;
 import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Intent;
@@ -36,8 +35,8 @@ public class ShowLock extends Service {
     @Override
     public void onCreate() {
         Main.showLog("ShowLock");
-        keyguardManager = (KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE);
-        lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
+//        keyguardManager = (KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE);
+//        lock = keyguardManager.newKeyguardLock(KEYGUARD_SERVICE);
         showWindow();
         super.onCreate();
     }
@@ -47,14 +46,6 @@ public class ShowLock extends Service {
         Button btUnLock;
         LayoutInflater inflater = LayoutInflater.from(this);
         view = inflater.inflate(R.layout.activity_main, null);
-        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
-                PixelFormat.TRANSLUCENT);
-        params.gravity = Gravity.CENTER;
         btUnLock = (Button) view.findViewById(R.id.bt_unlock);
         btUnLock.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,14 +54,26 @@ public class ShowLock extends Service {
                 stopSelf();
             }
         });
+        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
+        params = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED +
+                        WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON+
+                        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE +
+
+                PixelFormat.TRANSLUCENT);
+        params.gravity = Gravity.CENTER;
+
         windowManager.addView(view, params);
-        lock.disableKeyguard();
+//        lock.disableKeyguard();
     }
 
     @Override
     public void onDestroy() {
         Main.showLog("onDestroy");
         if (view != null) windowManager.removeView(view);
+
         super.onDestroy();
         //   lock.reenableKeyguard();
 

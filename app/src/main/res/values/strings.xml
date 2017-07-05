@@ -20,4 +20,5 @@
     <string name="question_1">Tên con vật bạn yêu nhất ?</string>
     <string name="question_2">Tên bộ phim bạn thích nhát</string>
     <string name="question_3">Tên thành phố bạn sinh ra</string>
+    <string name="notity">Show notification</string>
 </resources>

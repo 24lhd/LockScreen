@@ -5,8 +5,8 @@
 	<dimen name="dialog_enable_lockscreen_2">6.42dp</dimen>
 	<dimen name="dialog_enable_lockscreen_3">19.27dp</dimen>
 	<dimen name="dialog_enable_lockscreen_parding_2">89.91dp</dimen>
-	<dimen name="im_h_hdpi">279.99dp</dimen>
-	<dimen name="im_w_hdpi">168.25dp</dimen>
+	<dimen name="im_h_hdpi">295.41dp</dimen>
+	<dimen name="im_w_hdpi">218.34dp</dimen>
 	<dimen name="layout_margin_demo">6.42dp</dimen>
 	<dimen name="layout_start_margin">32.11dp</dimen>
 	<dimen name="layout_start_parding_1">12.84dp</dimen>

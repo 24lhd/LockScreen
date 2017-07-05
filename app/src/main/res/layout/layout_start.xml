@@ -56,6 +56,7 @@
         android:paddingTop="@dimen/layout_start_parding_1"
         android:paddingLeft="@dimen/layout_start_parding_2"
         android:layout_marginTop="@dimen/layout_start_margin"
+        android:id="@+id/btn_gotit"
         android:paddingRight="@dimen/layout_start_parding_2"
         android:textColor="@color/color_white"
         android:layout_gravity="center"

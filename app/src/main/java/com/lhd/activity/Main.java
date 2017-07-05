@@ -1,13 +1,11 @@
 package com.lhd.activity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -15,14 +13,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.lhd.demolock.R;
-import com.lhd.fragment.SelectTypeLock;
-import com.lhd.service.ListenOnOff;
+import com.lhd.fragment.Setting;
+import com.lhd.fragment.Start;
+import com.lhd.object.OnOff;
+import com.lhd.service.FloatIcon;
 import com.orhanobut.hawk.Hawk;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class Main extends AppCompatActivity {
+
+    public static final java.lang.String IS_START = "is_start";
+    public static final java.lang.String IS_START_DIALOG_SETTING = "is_start_dialog_setting";
+    public static final String IS_ENABLE_LOCK = "IS_ENABLE_LOCK";
+    public static final String IS_SOUND = "IS_SOUND";
+    public static final String IS_RUNG = "IS_RUNG";
+    public static final String IS_24H = "IS_24H";
+    public static final String IMAGE_BACKGROUND = "IMAGE_BACKGROUND";
 
     public static void showLog(String logContent) {
         Log.e("duong", logContent);
@@ -31,16 +36,23 @@ public class Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Hawk.init(this).build();
         setContentView(R.layout.layout_main);
         checkPermisstion();
-        setFragmentStart();
         checkDrawOverlayPermission();
-//        rung();
-        date24();
-        date12();
-        Hawk.init(this).build();
-//        Hawk.put("duong",new Duong());
-        //   showLog(Hawk.get("duong").toString());
+        try {
+            if (((OnOff) Hawk.get(IS_START)).isTrue()) {
+                setFragmentSetting();
+            }else {
+                setFragmentStart();
+            }
+        } catch (NullPointerException e) {
+            setFragmentStart();
+        }
+    }
+
+    private void setFragmentSetting() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Setting()).commit();
     }
 
     class Duong {
@@ -72,40 +84,19 @@ public class Main extends AppCompatActivity {
         }
     }
 
-    private void date12() {
-        Date date = new Date();
-        date.setHours(date.getHours());
-        System.out.println(date);
-        SimpleDateFormat simpDate;
-        simpDate = new SimpleDateFormat("h:mm");
-        // System.out.println(simpDate.format(date));
-        showLog(simpDate.format(date));
-    }
 
-    private void date24() {
-        Date date = new Date();
-        date.setHours(date.getHours());
-        System.out.println(date);
-        SimpleDateFormat simpDate;
-        simpDate = new SimpleDateFormat("HH:mm");
-        // System.out.println(simpDate.format(date));
-        showLog(simpDate.format(date));
-    }
 
     public void rung() {
-        Vibrator v = (Vibrator) this.getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
-        v.vibrate(500);
+
     }
 
     private void checkPermisstion() {
         xinQuyen(Manifest.permission.SYSTEM_ALERT_WINDOW, 1000);
         xinQuyen(Manifest.permission.DISABLE_KEYGUARD, 1100);
-        // checkDrawOverlayPermission();
     }
 
     private void setFragmentStart() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new SelectTypeLock()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Start()).commit();
     }
 
     public void xinQuyen(String quyen, int indexResult) {
@@ -130,7 +121,8 @@ public class Main extends AppCompatActivity {
                 /** request permission via start activity for result */
                 startActivityForResult(intent, REQUEST_CODE);
             } else {
-                Intent intent = new Intent(this, ListenOnOff.class);
+                showLog("chay roi");
+                Intent intent = new Intent(this, FloatIcon.class);
                 startService(intent);
             }
         }
@@ -146,8 +138,8 @@ public class Main extends AppCompatActivity {
         if (requestCode == REQUEST_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (Settings.canDrawOverlays(this)) {
-                    showLog("cho phep");
-                    Intent intent = new Intent(this, ListenOnOff.class);
+                    showLog("cho phep cahy");
+                    Intent intent = new Intent(this, FloatIcon.class);
                     startService(intent);
                 } else {
                     showLog("khong cho phep");

@@ -3,7 +3,6 @@ package com.lhd.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,10 @@ import android.widget.Button;
 
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
+import com.lhd.object.OnOff;
+import com.orhanobut.hawk.Hawk;
+
+import static com.lhd.activity.Main.IS_START;
 
 /**
  * Created by D on 7/3/2017.
@@ -31,19 +34,16 @@ public class Start extends Fragment {
     }
 
     private void setView() {
-        LayoutInflater inflater = LayoutInflater.from(main);
-        View viewEnableLockScreen = inflater.inflate(R.layout.dialog_enable_lockscreen, null);
-        final AlertDialog.Builder builder = new AlertDialog.Builder(main);
-        builder.setView(viewEnableLockScreen);
-        Button button = viewEnableLockScreen.findViewById(R.id.btGotIt_dialog);
-        final AlertDialog alertDialog = builder.create();
-        button.setOnClickListener(new View.OnClickListener() {
+        Hawk.init(main).build();
+        Button btnGotIt = viewContent.findViewById(R.id.btn_gotit);
+        btnGotIt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alertDialog.dismiss();
+                Hawk.put(IS_START,new OnOff(true));
                 main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Setting()).commit();
             }
         });
-        alertDialog.show();
     }
+
+
 }

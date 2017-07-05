@@ -4,7 +4,10 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission
+        android:name="android.permission.DISABLE_KEYGUARD"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,16 +22,25 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.lhd.service.ListenOnOff" />
+        <service android:name="com.lhd.service.MyService" android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
+
+
+        </service>
         <service android:name="com.lhd.service.ShowLock" />
+        <service android:name="com.lhd.service.FloatIcon" />
+
         <receiver android:name="com.lhd.broadcast.BroadcastScreenOnOff">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_ON"></action>
                 <action android:name="android.intent.action.SCREEN_OFF"></action>
-                <action android:name="android.intent.action.USER_PRESENT"></action>
-                <action android:name="android.intent.action.USER_UNLOCKED"></action>
             </intent-filter>
         </receiver>
+        <activity
+            android:name="com.lhd.activity.Flag"
+            android:showOnLockScreen="true">
+
+        </activity>
+
     </application>
 
 </manifest>
