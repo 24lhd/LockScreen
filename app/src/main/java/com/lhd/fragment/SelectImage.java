@@ -71,7 +71,7 @@ public class SelectImage extends Fragment {
 
             return new ViewHolderImage(view);
         }
-
+//
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
