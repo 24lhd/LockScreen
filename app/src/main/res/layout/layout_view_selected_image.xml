@@ -2,28 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:background="@color/colorPrimary"
-        android:id="@+id/im_bg_selected"
+        android:id="@+id/im_bg_view_selected"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/imageView4"
+        android:layout_alignTop="@+id/im_next_img_right"
         android:src="@drawable/ic_navigate_before_white_36dp"
-        android:id="@+id/imageView5" />
+        android:id="@+id/im_next_img_left" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/im_next_img_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -37,6 +34,7 @@
         android:layout_marginBottom="45dp"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
+        android:id="@+id/btn_set_image_backgroud"
         android:paddingRight="60dp"
         android:paddingLeft="60dp"
         android:gravity="center"
@@ -53,7 +51,7 @@
         android:textColor="@color/color_white"
         android:layout_marginTop="34dp"
         android:gravity="center"
-        android:id="@+id/textView3"
+        android:id="@+id/tv_time_view"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <TextView
@@ -62,8 +60,8 @@
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_height="wrap_content"
         android:textColor="@color/color_white"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/textView3"
+        android:id="@+id/tv_date_view"
+        android:layout_below="@+id/tv_time_view"
         android:layout_centerHorizontal="true"
       />
 </RelativeLayout>

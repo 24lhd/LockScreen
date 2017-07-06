@@ -35,7 +35,6 @@ public class FloatIcon extends Service {
 
     private BroadcastReceiver mReceiver;
     private boolean isShowing = false;
-    private TextView textview;
     private Button btUnLock;
     private View layout;
 
@@ -44,6 +43,8 @@ public class FloatIcon extends Service {
         return null;
     }
 
+    TextView tvDate;
+    TextView tvTime;
     ImageView imgBackground;
     private WindowManager windowManager;
     WindowManager.LayoutParams params;
@@ -52,31 +53,19 @@ public class FloatIcon extends Service {
     public void onCreate() {
         super.onCreate();
         Hawk.init(this).build();
-        Main.showLog("FloatIcon onCreate");
         ((KeyguardManager) getSystemService(KEYGUARD_SERVICE)).newKeyguardLock(getPackageName()).disableKeyguard();
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
         LayoutInflater inflater = LayoutInflater.from(this);
         layout = inflater.inflate(R.layout.lock_screen, null);
         btUnLock = (Button) layout.findViewById(R.id.btn_unlock_screen);
         imgBackground = layout.findViewById(R.id.im_bg_lockscreen);
-        TextView tvDate = layout.findViewById(R.id.txt_date_lockscreen);
-        TextView tvTime = layout.findViewById(R.id.txt_time_lockscreen);
-        tvDate.setText(Setting.date());
+        tvDate = layout.findViewById(R.id.txt_date_lockscreen);
+        tvTime = layout.findViewById(R.id.txt_time_lockscreen);
 
-        try {
-            if (((OnOff) Hawk.get(Main.IS_24H)).isTrue())
-                tvTime.setText(Setting.time24());
-            else
-                tvTime.setText(Setting.time12());
-        } catch (NullPointerException e) {
-            tvDate.setText(Setting.time24());
-        }
         btUnLock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Main.showLog("ShowLock stopSelf");
                 windowManager.removeViewImmediate(layout);
-//                stopSelf();
                 isShowing = false;
             }
         });
@@ -106,22 +95,29 @@ public class FloatIcon extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF)) {
-                //if screen is turn off show the textviewx
                 Hawk.init(context).build();
                 if (!isShowing && ((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue()) {
                     Main.showLog("ShowLock");
                     try {
-                        Main.showLog("load " + ((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getDrawImage());
                         Glide.with(FloatIcon.this).load(((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getDrawImage()).into(imgBackground);
                     } catch (NullPointerException e) {
-                        Glide.with(FloatIcon.this).load(R.drawable.a19).into(imgBackground);
+                        Glide.with(FloatIcon.this).load(R.drawable.a2).into(imgBackground);
+                    }
+                    tvDate.setText(Setting.date());
+
+                    try {
+                        if (((OnOff) Hawk.get(Main.IS_24H)).isTrue())
+                            tvTime.setText(Setting.time24());
+                        else
+                            tvTime.setText(Setting.time12());
+                    } catch (NullPointerException e) {
+                        tvTime.setText(Setting.time24());
                     }
                     ((KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(getPackageName()).disableKeyguard();
                     windowManager.addView(layout, params);
                     isShowing = true;
                 }
             } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
-                //Handle resuming events if user is present/screen is unlocked remove the textview immediately
                 if (isShowing) {
                     ((KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(getPackageName()).reenableKeyguard();
                     windowManager.removeViewImmediate(layout);
@@ -133,12 +129,9 @@ public class FloatIcon extends Service {
 
     @Override
     public void onDestroy() {
-        //unregister receiver when the service is destroy
         if (mReceiver != null) {
             unregisterReceiver(mReceiver);
         }
-
-        //remove view if it is showing and the service is destroy
         if (isShowing) {
             Main.showLog("removeViewImmediate");
             windowManager.removeViewImmediate(layout);

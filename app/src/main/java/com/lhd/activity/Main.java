@@ -29,6 +29,7 @@ public class Main extends AppCompatActivity {
     public static final String IS_24H = "IS_24H";
     public static final String IMAGE_BACKGROUND = "IMAGE_BACKGROUND";
     public static final String INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN = "INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN";
+    public static final String QUYEN_VE_LEN_TREN = "QUYEN_VE_LEN_TREN";
 
 
     public static void showLog(String logContent) {
@@ -41,7 +42,6 @@ public class Main extends AppCompatActivity {
         Hawk.init(this).build();
         setContentView(R.layout.layout_main);
         checkPermisstion();
-        checkDrawOverlayPermission();
         try {
             if (((OnOff) Hawk.get(IS_START)).isTrue()) {
                 setFragmentSetting();
@@ -51,49 +51,26 @@ public class Main extends AppCompatActivity {
         } catch (NullPointerException e) {
             setFragmentStart();
         }
+        Intent intent = new Intent(this, FloatIcon.class);
+        startService(intent);
+        try {
+            boolean b = ((OnOff) Hawk.get(QUYEN_VE_LEN_TREN)).isTrue();
+        } catch (NullPointerException e) {
+            Hawk.put(Main.QUYEN_VE_LEN_TREN, new OnOff(false));
+        }
+
     }
 
     private void setFragmentSetting() {
         getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Setting()).commit();
     }
 
-    class Duong {
-        String ten = "Dương";
-        int tuoi = 21;
-
-        @Override
-        public String toString() {
-            return "Duong{" +
-                    "ten='" + ten + '\'' +
-                    ", tuoi=" + tuoi +
-                    '}';
-        }
-
-        public String getTen() {
-            return ten;
-        }
-
-        public void setTen(String ten) {
-            this.ten = ten;
-        }
-
-        public int getTuoi() {
-            return tuoi;
-        }
-
-        public void setTuoi(int tuoi) {
-            this.tuoi = tuoi;
-        }
-    }
-
-
-    public void rung() {
-
-    }
-
     private void checkPermisstion() {
         xinQuyen(Manifest.permission.SYSTEM_ALERT_WINDOW, 1000);
         xinQuyen(Manifest.permission.DISABLE_KEYGUARD, 1100);
+        if (Hawk.get(Main.QUYEN_VE_LEN_TREN)==null){
+            Hawk.put(Main.QUYEN_VE_LEN_TREN,new OnOff(false));
+        }
     }
 
     private void setFragmentStart() {
@@ -113,19 +90,17 @@ public class Main extends AppCompatActivity {
     public final static int REQUEST_CODE = 21;
 
     public void checkDrawOverlayPermission() {
-        /** check if we already  have permission to draw over other apps */
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                /** if not construct intent to request permission */
+//            if (!Settings.canDrawOverlays(this)) {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                         Uri.parse("package:" + getPackageName()));
-                /** request permission via start activity for result */
                 startActivityForResult(intent, REQUEST_CODE);
-            } else {
-                showLog("chay roi");
-                Intent intent = new Intent(this, FloatIcon.class);
-                startService(intent);
-            }
+//            }
+//            else {
+//                showLog("chay roi");
+//                Intent intent = new Intent(this, FloatIcon.class);
+//                startService(intent);
+//            }
         }
     }
 
@@ -138,13 +113,17 @@ public class Main extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Hawk.put(Main.QUYEN_VE_LEN_TREN, new OnOff(Settings.canDrawOverlays(this)));
                 if (Settings.canDrawOverlays(this)) {
-                    showLog("cho phep cahy");
-                    Intent intent = new Intent(this, FloatIcon.class);
-                    startService(intent);
+                    showLog("cho phep chay");
+//                    Intent intent = new Intent(this, FloatIcon.class);
+//                    startService(intent);
                 } else {
                     showLog("khong cho phep");
-
+//                    checkDrawOverlayPermission();
+//                    Snackbar.make(getCurrentFocus(), "khong cho phep", Snackbar.LENGTH_LONG)
+//                            .setAction("Action", null)
+//                            .show();
                 }
             }
         }

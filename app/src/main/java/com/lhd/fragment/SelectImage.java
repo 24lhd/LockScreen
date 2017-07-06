@@ -16,8 +16,6 @@ import com.lhd.activity.Main;
 import com.lhd.activity.ViewImageBackground;
 import com.lhd.config.Data;
 import com.lhd.demolock.R;
-import com.lhd.object.BackgroundImageLockScreen;
-import com.orhanobut.hawk.Hawk;
 
 /**
  * Created by D on 7/4/2017.
@@ -84,7 +82,8 @@ public class SelectImage extends Fragment {
                     bundle.putInt(Main.INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN,position);
                     intent.putExtras(bundle);
                     main.startActivity(intent);
-                    Hawk.put(Main.IMAGE_BACKGROUND,new BackgroundImageLockScreen(Data.getBackgroundImageLockScreens().get(position).getDrawImage()));
+                    main.overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+
                 }
             });
         }

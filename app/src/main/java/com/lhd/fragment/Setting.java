@@ -3,6 +3,7 @@ package com.lhd.fragment;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -40,19 +41,18 @@ public class Setting extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewContent = inflater.inflate(R.layout.layout_setting, null);
         main = (Main) getActivity();
-        showDiaLogHuongDan();
+
+        try {
+            if (((OnOff) Hawk.get(Main.IS_START_DIALOG_SETTING)).isTrue()) setView();
+            else showDiaLogHuongDan();
+        } catch (NullPointerException e) {
+            showDiaLogHuongDan();
+        }
         Hawk.init(main).build();
         return viewContent;
     }
 
     private void showDiaLogHuongDan() {
-        try {
-            if (((OnOff) Hawk.get(Main.IS_START_DIALOG_SETTING)).isTrue()) {
-                setView();
-                return;
-            }
-        } catch (NullPointerException e) {
-        }
         View viewEnableLockScreen = View.inflate(main, R.layout.dialog_enable_lockscreen, null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(main);
         builder.setView(viewEnableLockScreen);
@@ -88,8 +88,9 @@ public class Setting extends Fragment {
         });
         try {
             swEnableLock.setChecked(((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue());
-
         } catch (NullPointerException e) {
+            Hawk.put(Main.IS_ENABLE_LOCK, new OnOff(false));
+            swEnableLock.setChecked(((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue());
         }
         try {
             swSound.setChecked(((OnOff) Hawk.get(Main.IS_SOUND)).isTrue());
@@ -106,10 +107,16 @@ public class Setting extends Fragment {
         swEnableLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Hawk.put(Main.IS_ENABLE_LOCK, new OnOff(b));
-                if (!((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue()) {
+                if (((OnOff) Hawk.get(Main.QUYEN_VE_LEN_TREN)).isTrue() == false) {
+                    showDiaLogXinQuyenVeTrenApp();
+                    Hawk.put(Main.IS_ENABLE_LOCK, new OnOff(false));
+                    swEnableLock.setChecked(false);
+                    return;
+                } else if (!((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue()) {
                     ((KeyguardManager) main.getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(main.getPackageName()).reenableKeyguard();
                 }
+                Hawk.put(Main.IS_ENABLE_LOCK, new OnOff(b));
+                swEnableLock.setChecked(((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue());
             }
         });
         swSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -133,6 +140,20 @@ public class Setting extends Fragment {
                 showTime();
             }
         });
+    }
+
+    private void showDiaLogXinQuyenVeTrenApp() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(main);
+        builder.setTitle("Cấp quyền cho ứng dụng");
+        builder.setMessage("Ứng dụng cần được bạn cấp quyền vẽ trên màn hình");
+        builder.setNegativeButton("Mở", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                main.checkDrawOverlayPermission();
+            }
+        });
+        builder.show();
+
     }
 
     private void startSelectImgaeBackground() {
@@ -166,14 +187,15 @@ public class Setting extends Fragment {
         Main.showLog(simpDate.format(date));
         return simpDate.format(date);
     }
+
     public static String date() {
         Date date = new Date();
         String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
-        String day          = (String) DateFormat.format("dd",   date); // 20
-        String monthString  = (String) DateFormat.format("MMM",  date); // Jun
-        String monthNumber  = (String) DateFormat.format("MM",   date); // 06
-        String year         = (String) DateFormat.format("yyyy", date); // 2013
-        return dayOfTheWeek+" "+day+" "+monthString+" "+year ;
+        String day = (String) DateFormat.format("dd", date); // 20
+        String monthString = (String) DateFormat.format("MMM", date); // Jun
+        String monthNumber = (String) DateFormat.format("MM", date); // 06
+        String year = (String) DateFormat.format("yyyy", date); // 2013
+        return dayOfTheWeek + " " + day + " " + monthString + " " + year;
     }
 
     private void playVibiration(Context context) {
