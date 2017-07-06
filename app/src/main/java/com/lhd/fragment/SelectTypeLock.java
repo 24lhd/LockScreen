@@ -21,7 +21,7 @@ public class SelectTypeLock extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewContent = inflater.inflate(R.layout.activity_main, null);
+        viewContent = inflater.inflate(R.layout.item_type_lock, null);
         main = (Main) getActivity();
 //        ImageView imageView1 = viewContent.findViewById(R.id.type_1);
 //        Glide.with(main).load(R.drawable.type_1).into(imageView1);

@@ -32,6 +32,7 @@
                     android:id="@+id/type_1"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
+                    android:src="@drawable/type_1"
                     android:scaleType="centerCrop" />
             </LinearLayout>
 
@@ -54,6 +55,7 @@
                     android:id="@+id/type_2"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
+                    android:src="@drawable/type_2"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop" />
             </LinearLayout>
@@ -83,6 +85,7 @@
                     android:id="@+id/type_3"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
+                    android:src="@drawable/type_3"
                     android:scaleType="centerCrop" />
             </LinearLayout>
 
@@ -105,6 +108,7 @@
                     android:id="@+id/type_4"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
+                    android:src="@drawable/type_1"
                     android:scaleType="centerCrop" />
             </LinearLayout>
         </LinearLayout>

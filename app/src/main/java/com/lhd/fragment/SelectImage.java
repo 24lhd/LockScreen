@@ -22,6 +22,7 @@ import com.lhd.demolock.R;
  */
 
 public class SelectImage extends Fragment {
+    public static final int RESULT_LOAD_IMG = 1110;
     private View viewContent;
     private Main main;
 
@@ -77,6 +78,13 @@ public class SelectImage extends Fragment {
             ((ViewHolderImage) holder).getImageView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if (position==0){
+                        Main.showLog("position");
+                        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                        photoPickerIntent.setType("image/*");
+                        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+                        return;
+                    }
                     Intent intent=new Intent(main,ViewImageBackground.class);
                     Bundle bundle=new Bundle();
                     bundle.putInt(Main.INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN,position);

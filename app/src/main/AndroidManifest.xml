@@ -15,17 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.lhd.activity.Main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.lhd.activity.Main"></activity>
 
-        <service android:name="com.lhd.service.MyService" android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen">
-
-
-        </service>
+        <service
+            android:name="com.lhd.service.MyService"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"></service>
         <service android:name="com.lhd.service.ShowLock" />
         <service android:name="com.lhd.service.FloatIcon" />
 
@@ -35,16 +29,21 @@
                 <action android:name="android.intent.action.SCREEN_OFF"></action>
             </intent-filter>
         </receiver>
+
         <activity
             android:name="com.lhd.activity.Flag"
-            android:showOnLockScreen="true">
-
-        </activity>
+            android:showOnLockScreen="true"></activity>
         <activity
             android:name="com.lhd.activity.ViewImageBackground"
-             android:theme="@style/Theme.AppCompat.NoActionBar">
-
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+        <activity android:name="com.lhd.activity.Test">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
+
     </application>
 
 </manifest>

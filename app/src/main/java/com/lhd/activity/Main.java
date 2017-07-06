@@ -3,6 +3,8 @@ package com.lhd.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,11 +15,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.lhd.demolock.R;
+import com.lhd.fragment.SelectImage;
 import com.lhd.fragment.Setting;
 import com.lhd.fragment.Start;
 import com.lhd.object.OnOff;
 import com.lhd.service.FloatIcon;
 import com.orhanobut.hawk.Hawk;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class Main extends AppCompatActivity {
 
@@ -125,6 +131,21 @@ public class Main extends AppCompatActivity {
 //                            .setAction("Action", null)
 //                            .show();
                 }
+            }
+        }
+        if (requestCode== SelectImage.RESULT_LOAD_IMG){
+            if (resultCode == RESULT_OK) {
+                try {
+                     Uri imageUri = data.getData();
+                     InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                     Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    Main.showLog(""+imageUri.getEncodedPath());
+//                    image_view.setImageBitmap(selectedImage);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+//                    Toast.makeText(PostImage.this, "Something went wrong", Toast.LENGTH_LONG).show();
+                }
+
             }
         }
     }

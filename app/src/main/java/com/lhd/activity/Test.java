@@ -1,76 +1,50 @@
 package com.lhd.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
-import android.view.WindowManager;
 
-import com.lhd.demolock.R;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
+import static com.lhd.fragment.SelectImage.RESULT_LOAD_IMG;
 
 /**
  * Created by D on 7/3/2017.
  */
 
 public class Test extends AppCompatActivity {
-
-    public final static int REQUEST_CODE = 10101;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        if (checkDrawOverlayPermission()) {
-//            startService(new Intent(this, PowerButtonService.class));
-        }
+        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
     }
-
-    public boolean checkDrawOverlayPermission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            return true;
-        }
-        if (!Settings.canDrawOverlays(this)) {
-            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                    Uri.parse("package:" + getPackageName()));
-            startActivityForResult(intent, REQUEST_CODE);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     @Override
-    @TargetApi(Build.VERSION_CODES.M)
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE) {
-            if (Settings.canDrawOverlays(this)) {
-//                startService(new Intent(this, PowerButtonService.class));
+    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+        super.onActivityResult(reqCode, resultCode, data);
+
+        if (reqCode==RESULT_LOAD_IMG&&resultCode == RESULT_OK) {
+            try {
+                final Uri imageUri = data.getData();
+                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+//                image_view.setImageBitmap(selectedImage);
+                Main.showLog(imageUri.getEncodedPath());
+                Main.showLog("Lấy dc r");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                Main.showLog("lỗi");
+//                Toast.makeText(PostImage.this, "Something went wrong", Toast.LENGTH_LONG).show();
             }
-        }
-    }
-    @Override
-    public void onAttachedToWindow() {
-        this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-        super.onAttachedToWindow();
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event)  {
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.ECLAIR
-                && (keyCode == KeyEvent.KEYCODE_BACK    || keyCode == KeyEvent.KEYCODE_HOME)
-                && event.getRepeatCount() == 0)
-        {
-            onBackPressed();
-        }
-        return super.onKeyDown(keyCode, event);
-    }
 
-    @Override
-    public void onBackPressed() {
-        // Do nothing
-        return;
+        }else {
+//            Toast.makeText(PostImage.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
+        }
     }
 }

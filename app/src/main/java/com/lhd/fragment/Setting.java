@@ -86,6 +86,12 @@ public class Setting extends Fragment {
                 startSelectImgaeBackground();
             }
         });
+        viewContent.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSelectTypeLock();
+            }
+        });
         try {
             swEnableLock.setChecked(((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue());
         } catch (NullPointerException e) {
@@ -112,9 +118,8 @@ public class Setting extends Fragment {
                     Hawk.put(Main.IS_ENABLE_LOCK, new OnOff(false));
                     swEnableLock.setChecked(false);
                     return;
-                } else if (!((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue()) {
+                } else if (!((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue())
                     ((KeyguardManager) main.getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(main.getPackageName()).reenableKeyguard();
-                }
                 Hawk.put(Main.IS_ENABLE_LOCK, new OnOff(b));
                 swEnableLock.setChecked(((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue());
             }
@@ -140,6 +145,10 @@ public class Setting extends Fragment {
                 showTime();
             }
         });
+    }
+
+    private void startSelectTypeLock() {
+        main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new SelectTypeLock()).commit();
     }
 
     private void showDiaLogXinQuyenVeTrenApp() {
