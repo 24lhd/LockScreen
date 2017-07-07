@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.lhd.config.Data;
 import com.lhd.demolock.R;
 import com.lhd.fragment.Setting;
@@ -72,7 +71,7 @@ public class ViewImageBackground extends Activity {
         ((Button) findViewById(R.id.btn_set_image_backgroud)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Hawk.put(Main.IMAGE_BACKGROUND, new BackgroundImageLockScreen(Data.getBackgroundImageLockScreens().get(index).getDrawImage()));
+                Hawk.put(Main.IMAGE_BACKGROUND, new BackgroundImageLockScreen(Data.getBackgroundImageLockScreens().get(index).getPickImage()));
                 finish();
                 finish();
                 overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
@@ -98,8 +97,10 @@ public class ViewImageBackground extends Activity {
     }
 
     private void loadImageView(int indexImage) {
-        Glide.with(this).load(Data.getBackgroundImageLockScreens().get(indexImage).getDrawImage()).into(((ImageView) findViewById(R.id.im_bg_view_selected)));
+        BackgroundImageLockScreen.loadImage(this,Data.getBackgroundImageLockScreens().get(indexImage).getPickImage(),((ImageView) findViewById(R.id.im_bg_view_selected)));
+//        Glide.with(this).load(Data.getBackgroundImageLockScreens().get(indexImage).getPickImage()).into(((ImageView) findViewById(R.id.im_bg_view_selected)));
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

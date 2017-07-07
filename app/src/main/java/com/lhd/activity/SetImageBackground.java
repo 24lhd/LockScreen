@@ -1,49 +1,40 @@
-package com.lhd.fragment;
+package com.lhd.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.lhd.activity.Main;
-import com.lhd.activity.ViewImageBackground;
 import com.lhd.config.Data;
 import com.lhd.demolock.R;
 import com.lhd.object.BackgroundImageLockScreen;
 
+import static com.lhd.activity.Main.INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN;
+import static com.lhd.fragment.SelectImage.RESULT_LOAD_IMG;
+
 /**
- * Created by D on 7/4/2017.
+ * Created by D on 7/6/2017.
  */
 
-public class SelectImage extends Fragment {
-    public static final int RESULT_LOAD_IMG = 1110;
-    private View viewContent;
-    private Main main;
-
-    @Nullable
+public class SetImageBackground extends AppCompatActivity {
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewContent = inflater.inflate(R.layout.layout_select_image, null);
-        main = (Main) getActivity();
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.layout_select_image);
         setView();
-        return viewContent;
     }
 
     private void setView() {
-        RecyclerView recyclerView = viewContent.findViewById(R.id.rcv_list_image_to_select);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rcv_list_image_to_select);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new GridLayoutManager(main, 2));
+        recyclerView.setLayoutManager(new GridLayoutManager(SetImageBackground.this, 2));
         recyclerView.setAdapter(new AdaptorImage());
-
     }
-
-
     public class ViewHolderImage extends RecyclerView.ViewHolder {
         ImageView imageView;
 
@@ -66,17 +57,17 @@ public class SelectImage extends Fragment {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = View.inflate(main, R.layout.item_select_image, null);
+            View view = View.inflate(SetImageBackground.this, R.layout.item_select_image, null);
 
             return new ViewHolderImage(view);
         }
-//
+        //
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position!=0){
-                BackgroundImageLockScreen.loadImage(main,Data.getBackgroundImageLockScreens().get(position).getPickImage(),((ViewHolderImage) holder).getImageView());
+                BackgroundImageLockScreen.loadImage(SetImageBackground.this, Data.getBackgroundImageLockScreens().get(position).getPickImage(),((ViewHolderImage) holder).getImageView());
             }
-//            Glide.with(main).load(Data.getBackgroundImageLockScreens().get(position).getPickImage()).into(((ViewHolderImage) holder).getImageView());
+//            Glide.with(SetImageBackground.this).load(Data.getBackgroundImageLockScreens().get(position).getPickImage()).into(((ViewHolderImage) holder).getImageView());
             ((ViewHolderImage) holder).getImageView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -84,15 +75,15 @@ public class SelectImage extends Fragment {
                         Main.showLog("position");
                         Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
                         photoPickerIntent.setType("image/*");
-                        main.startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+                        SetImageBackground.this.startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
                         return;
                     }
-                    Intent intent=new Intent(main,ViewImageBackground.class);
+                    Intent intent=new Intent(SetImageBackground.this,ViewImageBackground.class);
                     Bundle bundle=new Bundle();
-                    bundle.putInt(Main.INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN,position);
+                    bundle.putInt(INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN,position);
                     intent.putExtras(bundle);
-                    main.startActivity(intent);
-                    main.overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+                    SetImageBackground.this.startActivity(intent);
+                    SetImageBackground.this.overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
 
                 }
             });

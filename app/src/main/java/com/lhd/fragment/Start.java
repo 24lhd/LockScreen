@@ -45,5 +45,9 @@ public class Start extends Fragment {
         });
     }
 
-
+    @Override
+    public void onDestroy() {
+        main.getSupportActionBar().show();
+        super.onDestroy();
+    }
 }

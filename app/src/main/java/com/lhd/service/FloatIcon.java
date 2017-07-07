@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
 import com.lhd.fragment.Setting;
@@ -99,12 +98,13 @@ public class FloatIcon extends Service {
                 if (!isShowing && ((OnOff) Hawk.get(Main.IS_ENABLE_LOCK)).isTrue()) {
                     Main.showLog("ShowLock");
                     try {
-                        Glide.with(FloatIcon.this).load(((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getDrawImage()).into(imgBackground);
+                        BackgroundImageLockScreen.loadImage(FloatIcon.this, ((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getPickImage(), imgBackground);
                     } catch (NullPointerException e) {
-                        Glide.with(FloatIcon.this).load(R.drawable.a2).into(imgBackground);
+                        BackgroundImageLockScreen.loadImage(FloatIcon.this, "" + R.drawable.a2, imgBackground);
+                    } catch (ClassCastException e) {
+                        BackgroundImageLockScreen.loadImage(FloatIcon.this, "a", imgBackground);
                     }
                     tvDate.setText(Setting.date());
-
                     try {
                         if (((OnOff) Hawk.get(Main.IS_24H)).isTrue())
                             tvTime.setText(Setting.time24());

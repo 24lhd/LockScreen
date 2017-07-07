@@ -1,22 +1,39 @@
 package com.lhd.object;
 
+import android.content.Context;
+import android.net.Uri;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.orhanobut.hawk.Hawk;
+
+import static com.lhd.activity.Main.IMAGE_BACKGROUND;
+
 /**
  * Created by D on 7/5/2017.
  */
 
 public class BackgroundImageLockScreen {
-   private int drawImage;
+    private String pickImage;
 
-    public BackgroundImageLockScreen(int drawImage) {
-        this.drawImage = drawImage;
+    public String getPickImage() {
+        return pickImage;
     }
 
-    public int getDrawImage() {
-
-        return drawImage;
+    public void setPickImage(String pickImage) {
+        this.pickImage = pickImage;
     }
 
-    public void setDrawImage(int drawImage) {
-        this.drawImage = drawImage;
+    public BackgroundImageLockScreen(String pickImage) {
+        this.pickImage = pickImage;
     }
+
+    public static void loadImage(Context activity, String uri, ImageView imageView) {
+        try {
+            Glide.with(activity).load(Integer.parseInt(uri)).into(imageView);
+        } catch (NumberFormatException e) {
+            Glide.with(activity).load((Uri) Hawk.get(IMAGE_BACKGROUND)).into(imageView);
+        }
+    }
+
 }

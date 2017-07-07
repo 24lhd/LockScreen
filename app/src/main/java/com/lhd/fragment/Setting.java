@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -20,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.lhd.activity.Main;
+import com.lhd.activity.SecurityQuestion;
 import com.lhd.demolock.R;
 import com.lhd.object.OnOff;
 import com.orhanobut.hawk.Hawk;
@@ -41,7 +43,6 @@ public class Setting extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewContent = inflater.inflate(R.layout.layout_setting, null);
         main = (Main) getActivity();
-
         try {
             if (((OnOff) Hawk.get(Main.IS_START_DIALOG_SETTING)).isTrue()) setView();
             else showDiaLogHuongDan();
@@ -49,6 +50,7 @@ public class Setting extends Fragment {
             showDiaLogHuongDan();
         }
         Hawk.init(main).build();
+
         return viewContent;
     }
 
@@ -170,7 +172,9 @@ public class Setting extends Fragment {
     }
 
     private void startSelectAnswer() {
-        main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Answer()).commit();
+        Intent intent=new Intent(main, SecurityQuestion.class);
+        main.startActivity(intent);
+//        main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Answer()).commit();
     }
 
     private void showTime() {

@@ -14,9 +14,9 @@ public class Data {
 
     public static ArrayList<BackgroundImageLockScreen> getBackgroundImageLockScreens() {
         backgroundImageLockScreens = new ArrayList<>();
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a2));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a3));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a2));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.a2));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.a3));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.a2));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a4));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a6));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a8));

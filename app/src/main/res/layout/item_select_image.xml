@@ -10,6 +10,7 @@
         android:layout_width="@dimen/im_w_hdpi"
         android:layout_height="@dimen/im_h_hdpi"
         android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_add_a_photo_black_36dp" />
+        android:background="@color/colorPrimary"
+        android:scaleType="center"
+        android:src="@drawable/ic_add_white_36dp" />
 </RelativeLayout>

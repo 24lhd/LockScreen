@@ -7,6 +7,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -34,9 +37,23 @@ public class Test extends AppCompatActivity {
                 final Uri imageUri = data.getData();
                 final InputStream imageStream = getContentResolver().openInputStream(imageUri);
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                ImageView imageView=new ImageView(this);
 //                image_view.setImageBitmap(selectedImage);
                 Main.showLog(imageUri.getEncodedPath());
                 Main.showLog("Lấy dc r");
+                Glide.with(this).load(imageUri).into(imageView);
+                setContentView(imageView);
+//                String demo="123";
+//                String demo2="1a23";
+                Bundle bundle=new Bundle();
+//
+//                Main.showLog(" "+ Integer.parseInt(demo));
+//                Main.showLog(" "+ Integer.parseInt(demo2));
+                try {
+
+                }catch (NumberFormatException e){
+
+                }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Main.showLog("lỗi");

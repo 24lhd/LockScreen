@@ -3,8 +3,6 @@ package com.lhd.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.lhd.demolock.R;
-import com.lhd.fragment.SelectImage;
 import com.lhd.fragment.Setting;
 import com.lhd.fragment.Start;
 import com.lhd.object.OnOff;
@@ -24,6 +21,8 @@ import com.orhanobut.hawk.Hawk;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import static com.lhd.fragment.SelectImage.RESULT_LOAD_IMG;
 
 public class Main extends AppCompatActivity {
 
@@ -74,8 +73,8 @@ public class Main extends AppCompatActivity {
     private void checkPermisstion() {
         xinQuyen(Manifest.permission.SYSTEM_ALERT_WINDOW, 1000);
         xinQuyen(Manifest.permission.DISABLE_KEYGUARD, 1100);
-        if (Hawk.get(Main.QUYEN_VE_LEN_TREN)==null){
-            Hawk.put(Main.QUYEN_VE_LEN_TREN,new OnOff(false));
+        if (Hawk.get(Main.QUYEN_VE_LEN_TREN) == null) {
+            Hawk.put(Main.QUYEN_VE_LEN_TREN, new OnOff(false));
         }
     }
 
@@ -98,9 +97,9 @@ public class Main extends AppCompatActivity {
     public void checkDrawOverlayPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 //            if (!Settings.canDrawOverlays(this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, REQUEST_CODE);
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, REQUEST_CODE);
 //            }
 //            else {
 //                showLog("chay roi");
@@ -133,20 +132,18 @@ public class Main extends AppCompatActivity {
                 }
             }
         }
-        if (requestCode== SelectImage.RESULT_LOAD_IMG){
-            if (resultCode == RESULT_OK) {
-                try {
-                     Uri imageUri = data.getData();
-                     InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                     Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                    Main.showLog(""+imageUri.getEncodedPath());
-//                    image_view.setImageBitmap(selectedImage);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-//                    Toast.makeText(PostImage.this, "Something went wrong", Toast.LENGTH_LONG).show();
-                }
-
+        if (requestCode == RESULT_LOAD_IMG) {
+            try {
+                Uri imageUri = data.getData();
+                InputStream imageStream = getContentResolver().openInputStream(imageUri);
+//                Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                Hawk.put(Main.IMAGE_BACKGROUND,imageUri);
+                Main.showLog("RESULT_LOAD_IMG");
+            } catch (FileNotFoundException e) {
+                Main.showLog("FileNotFoundException");
+                e.printStackTrace();
             }
+
         }
     }
 
