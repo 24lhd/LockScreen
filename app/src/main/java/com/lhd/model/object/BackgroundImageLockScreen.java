@@ -1,4 +1,4 @@
-package com.lhd.object;
+package com.lhd.model.object;
 
 import android.content.Context;
 import android.net.Uri;

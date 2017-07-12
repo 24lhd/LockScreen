@@ -2,12 +2,10 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -16,51 +14,56 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:id="@+id/type_lock_none"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_ten_type_1"
                     style="@style/Base.TextAppearance.AppCompat.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
+                    android:singleLine="true"
                     android:text="None" />
 
-                <ImageView android:layout_gravity="center"
-                    android:id="@+id/type_1"
+                <ImageView
+                    android:id="@+id/im_type_1"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
-                    android:src="@drawable/type_1"
+                    android:layout_gravity="center"
                     android:scaleType="centerCrop" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:id="@+id/type_lock_partern"
+
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_ten_type_2"
                     style="@style/Base.TextAppearance.AppCompat.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
+                    android:singleLine="true"
                     android:text="None" />
 
                 <ImageView
-                    android:id="@+id/type_2"
+                    android:id="@+id/im_type_2"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
-                    android:src="@drawable/type_2"
                     android:layout_gravity="center"
                     android:scaleType="centerCrop" />
             </LinearLayout>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,49 +72,54 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_margin="5dp"
+                android:id="@+id/type_lock_digital"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_ten_type_3"
                     style="@style/Base.TextAppearance.AppCompat.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
+                    android:singleLine="true"
                     android:text="None" />
 
-                <ImageView   android:layout_gravity="center"
-                    android:id="@+id/type_3"
+                <ImageView
+                    android:id="@+id/im_type_3"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
-                    android:src="@drawable/type_3"
+                    android:layout_gravity="center"
                     android:scaleType="centerCrop" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:id="@+id/type_lock_partern_02"
                 android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/txt_ten_type_4"
                     style="@style/Base.TextAppearance.AppCompat.Title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="5dp"
+                    android:singleLine="true"
                     android:text="None" />
 
-                <ImageView android:layout_gravity="center"
-                    android:id="@+id/type_4"
+                <ImageView
+                    android:id="@+id/im_type_4"
                     android:layout_width="@dimen/im_w_hdpi"
                     android:layout_height="@dimen/im_h_hdpi"
-                    android:src="@drawable/type_1"
+                    android:layout_gravity="center"
                     android:scaleType="centerCrop" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </ScrollView>

@@ -11,4 +11,5 @@
     <color name="dialog_enable_lockscreen_1">#1c92d2</color>
     <color name="color_view">#cdc8c8</color>
     <color name="color_none">#00ffffff</color>
+    <color name="blue_light">#ff33b5e5</color>
 </resources>

@@ -1,67 +1,55 @@
 package com.lhd.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 
-import com.bumptech.glide.Glide;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-
-import static com.lhd.fragment.SelectImage.RESULT_LOAD_IMG;
+import com.lhd.demolock.R;
+import com.lhd.model.object.OnOff;
+import com.orhanobut.hawk.Hawk;
 
 /**
  * Created by D on 7/3/2017.
  */
 
 public class Test extends AppCompatActivity {
+    private WindowManager windowManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
-    }
-    @Override
-    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
-        super.onActivityResult(reqCode, resultCode, data);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (Settings.canDrawOverlays(this)) {
+                final View viewEnableLockScreen = View.inflate(this, R.layout.dialog_enable_lockscreen, null);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setView(viewEnableLockScreen);
+                Button button = viewEnableLockScreen.findViewById(R.id.btGotIt_dialog);
+                final AlertDialog alertDialog = builder.create();
+                alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                alertDialog.getWindow().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Hawk.put(Main.IS_START_DIALOG_SETTING, new OnOff(true));
+                        alertDialog.dismiss();
+                    }
+                });
+                alertDialog.show();
+//            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+//                    Uri.parse("package:" + getPackageName()));
+//            startActivityForResult(intent, REQUEST_CODE);
+//            startActivityForResult(new Intent(this,Flag.class),12);
 
-        if (reqCode==RESULT_LOAD_IMG&&resultCode == RESULT_OK) {
-            try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                ImageView imageView=new ImageView(this);
-//                image_view.setImageBitmap(selectedImage);
-                Main.showLog(imageUri.getEncodedPath());
-                Main.showLog("Lấy dc r");
-                Glide.with(this).load(imageUri).into(imageView);
-                setContentView(imageView);
-//                String demo="123";
-//                String demo2="1a23";
-                Bundle bundle=new Bundle();
-//
-//                Main.showLog(" "+ Integer.parseInt(demo));
-//                Main.showLog(" "+ Integer.parseInt(demo2));
-                try {
-
-                }catch (NumberFormatException e){
-
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Main.showLog("lỗi");
-//                Toast.makeText(PostImage.this, "Something went wrong", Toast.LENGTH_LONG).show();
-            }
-
-        }else {
-//            Toast.makeText(PostImage.this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
+
+        }
+
     }
 }

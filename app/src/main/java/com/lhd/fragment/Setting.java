@@ -3,7 +3,6 @@ package com.lhd.fragment;
 import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -22,8 +21,10 @@ import android.widget.Switch;
 
 import com.lhd.activity.Main;
 import com.lhd.activity.SecurityQuestion;
+import com.lhd.activity.SelectTypeLock;
+import com.lhd.activity.SetImageBackground;
 import com.lhd.demolock.R;
-import com.lhd.object.OnOff;
+import com.lhd.model.object.OnOff;
 import com.orhanobut.hawk.Hawk;
 
 import java.text.SimpleDateFormat;
@@ -43,18 +44,19 @@ public class Setting extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewContent = inflater.inflate(R.layout.layout_setting, null);
         main = (Main) getActivity();
-        try {
-            if (((OnOff) Hawk.get(Main.IS_START_DIALOG_SETTING)).isTrue()) setView();
-            else showDiaLogHuongDan();
-        } catch (NullPointerException e) {
-            showDiaLogHuongDan();
-        }
         Hawk.init(main).build();
-
+//        try {
+//            if (((OnOff) Hawk.get(Main.IS_START_DIALOG_SETTING)).isTrue()) setView();
+//            else main.xinQuyenVeTren();
+//        } catch (NullPointerException e) {
+//        }
+//        main.  checkPermisstion();
+        setView();
         return viewContent;
     }
 
     private void showDiaLogHuongDan() {
+//        main.checkDrawOverlayPermission();
         View viewEnableLockScreen = View.inflate(main, R.layout.dialog_enable_lockscreen, null);
         final AlertDialog.Builder builder = new AlertDialog.Builder(main);
         builder.setView(viewEnableLockScreen);
@@ -72,6 +74,7 @@ public class Setting extends Fragment {
     }
 
     private void setView() {
+//        main.xinQuyenVeTren();
         swEnableLock = viewContent.findViewById(R.id.sw_enable_lock);
         Switch swSound = viewContent.findViewById(R.id.sw_sound);
         Switch swRung = viewContent.findViewById(R.id.sw_rung);
@@ -116,7 +119,8 @@ public class Setting extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (((OnOff) Hawk.get(Main.QUYEN_VE_LEN_TREN)).isTrue() == false) {
-                    showDiaLogXinQuyenVeTrenApp();
+//                    showDiaLogXinQuyenVeTrenApp();
+//                    main.xinQuyenVeTren();
                     Hawk.put(Main.IS_ENABLE_LOCK, new OnOff(false));
                     swEnableLock.setChecked(false);
                     return;
@@ -150,30 +154,37 @@ public class Setting extends Fragment {
     }
 
     private void startSelectTypeLock() {
-        main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new SelectTypeLock()).commit();
+        Intent intent=new Intent(main,SelectTypeLock.class);
+        main.startActivity(intent);
+        main.overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+      //  main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new SelectTypeLock()).commit();
     }
 
-    private void showDiaLogXinQuyenVeTrenApp() {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(main);
-        builder.setTitle("Cấp quyền cho ứng dụng");
-        builder.setMessage("Ứng dụng cần được bạn cấp quyền vẽ trên màn hình");
-        builder.setNegativeButton("Mở", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                main.checkDrawOverlayPermission();
-            }
-        });
-        builder.show();
-
-    }
+//    private void showDiaLogXinQuyenVeTrenApp() {
+//        final AlertDialog.Builder builder = new AlertDialog.Builder(main);
+//        builder.setTitle("Cấp quyền cho ứng dụng");
+//        builder.setMessage("Ứng dụng cần được bạn cấp quyền vẽ trên màn hình");
+//        builder.setNegativeButton("Mở", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                main.checkDrawOverlayPermission();
+//            }
+//        });
+//        builder.show();
+//
+//    }
 
     private void startSelectImgaeBackground() {
-        main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new SelectImage()).commit();
+        Intent intent=new Intent(main, SetImageBackground.class);
+        main.startActivity(intent);
+        main.overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+//        main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new SelectImage()).commit();
     }
 
     private void startSelectAnswer() {
         Intent intent=new Intent(main, SecurityQuestion.class);
         main.startActivity(intent);
+        main.overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
 //        main.getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Answer()).commit();
     }
 

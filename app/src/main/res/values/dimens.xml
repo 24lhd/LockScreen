@@ -11,4 +11,5 @@
     <dimen name="im_h_hdpi">230dp</dimen>
     <dimen name="buttom_digital">70dp</dimen>
     <dimen name="layout_margin_demo">5dp</dimen>
+    <dimen name="app_bar_elevation">5dp</dimen>
 </resources>

@@ -1,16 +1,11 @@
 package com.lhd.activity;
 
-import android.content.Context;
-import android.graphics.PixelFormat;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.Button;
 
 import com.lhd.demolock.R;
 
@@ -18,47 +13,33 @@ import com.lhd.demolock.R;
  * Created by D on 7/4/2017.
  */
 
-public class Flag extends AppCompatActivity implements View.OnTouchListener {
+public class Flag extends AppCompatActivity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+////            if (!Settings.canDrawOverlays(this)) {
+//            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+//                    Uri.parse("package:" + getPackageName()));
+//            startActivityForResult(intent, REQUEST_CODE);
+        final View viewEnableLockScreen = View.inflate(this, R.layout.dialog_enable_lockscreen, null);
+//        setContentView(viewEnableLockScreen);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(viewEnableLockScreen);
+        Button button = viewEnableLockScreen.findViewById(R.id.btGotIt_dialog);
+        final AlertDialog alertDialog = builder.create();
+//            alertDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY);
+//            alertDialog.getWindow().addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+//        setContentView(alertDialog);
+        alertDialog.show();
+//        }
+    }
 
-        private WindowManager windowManager;
-        private int widthPixels;
-        private int heightPixels;
-        private View view;
 
-        @Override
-        protected void onCreate(@Nullable Bundle savedInstanceState) {
-                super.onCreate(savedInstanceState);
-                windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-                DisplayMetrics outMetrics = new DisplayMetrics();
-                windowManager.getDefaultDisplay().getMetrics(outMetrics);
-                widthPixels = outMetrics.widthPixels;
-                heightPixels = outMetrics.heightPixels;
-                view = View.inflate(this, R.layout.activity_main, null);
-                view.setOnTouchListener(this);
-
-                ImageView imgTouch = new ImageView(this);
-//                imgTouch.setImageResource((app.getThemeList().get(app.getDisplayTheme())).intValue());
-                imgTouch.setImageDrawable(getResources().getDrawable(R.drawable.ic_help_black_36dp));
-                final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
-
-                params.gravity = Gravity.LEFT + Gravity.TOP;
-
-//                params.x = mSharedPreferences.getInt("Left", 0);
-//                params.y = mSharedPreferences.getInt("Top", 0);
-
-                params.height = WindowManager.LayoutParams.MATCH_PARENT;
-                params.width = WindowManager.LayoutParams.MATCH_PARENT;
-                params.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;// |
-
-                params.format = PixelFormat.TRANSLUCENT;
-
-                params.type = WindowManager.LayoutParams.TYPE_TOAST;
-
-                windowManager.addView(view, params);
-        }
-
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-                return false;
-        }
 }

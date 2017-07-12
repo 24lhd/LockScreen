@@ -1,7 +1,7 @@
-package com.lhd.config;
+package com.lhd.model.config;
 
 import com.lhd.demolock.R;
-import com.lhd.object.BackgroundImageLockScreen;
+import com.lhd.model.object.BackgroundImageLockScreen;
 
 import java.util.ArrayList;
 
@@ -9,14 +9,19 @@ import java.util.ArrayList;
  * Created by D on 7/5/2017.
  */
 
-public class Data {
+public class Config {
+    public static final java.lang.String SHOW_START = "SHOW_START";
+    public static final String ENABLE_LOCK = "ENABLE_LOCK";
+    public static final String SOUND = "SOUND";
+    public static final String VIBRATION = "VIBRATION";
+    public static final String FOMAT_TIME = "FOMAT_TIME";
     private static ArrayList<BackgroundImageLockScreen> backgroundImageLockScreens;
 
     public static ArrayList<BackgroundImageLockScreen> getBackgroundImageLockScreens() {
         backgroundImageLockScreens = new ArrayList<>();
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.a2));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.a3));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.a2));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.bg2));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.bg1));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.bg2));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a4));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a6));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a8));

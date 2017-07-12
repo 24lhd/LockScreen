@@ -20,8 +20,8 @@ import android.widget.TextView;
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
 import com.lhd.fragment.Setting;
-import com.lhd.object.BackgroundImageLockScreen;
-import com.lhd.object.OnOff;
+import com.lhd.model.object.BackgroundImageLockScreen;
+import com.lhd.model.object.OnOff;
 import com.orhanobut.hawk.Hawk;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
@@ -100,7 +100,7 @@ public class FloatIcon extends Service {
                     try {
                         BackgroundImageLockScreen.loadImage(FloatIcon.this, ((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getPickImage(), imgBackground);
                     } catch (NullPointerException e) {
-                        BackgroundImageLockScreen.loadImage(FloatIcon.this, "" + R.drawable.a2, imgBackground);
+                        BackgroundImageLockScreen.loadImage(FloatIcon.this, "" + R.drawable.bg2, imgBackground);
                     } catch (ClassCastException e) {
                         BackgroundImageLockScreen.loadImage(FloatIcon.this, "a", imgBackground);
                     }

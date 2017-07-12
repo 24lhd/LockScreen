@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.lhd.config.Data;
+import com.lhd.model.config.Config;
 import com.lhd.demolock.R;
-import com.lhd.object.BackgroundImageLockScreen;
+import com.lhd.model.object.BackgroundImageLockScreen;
 
 import static com.lhd.activity.Main.INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN;
 import static com.lhd.fragment.SelectImage.RESULT_LOAD_IMG;
@@ -28,7 +28,11 @@ public class SetImageBackground extends AppCompatActivity {
         setContentView(R.layout.layout_select_image);
         setView();
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+    }
     private void setView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rcv_list_image_to_select);
         recyclerView.setHasFixedSize(true);
@@ -65,9 +69,9 @@ public class SetImageBackground extends AppCompatActivity {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position!=0){
-                BackgroundImageLockScreen.loadImage(SetImageBackground.this, Data.getBackgroundImageLockScreens().get(position).getPickImage(),((ViewHolderImage) holder).getImageView());
+                BackgroundImageLockScreen.loadImage(SetImageBackground.this, Config.getBackgroundImageLockScreens().get(position).getPickImage(),((ViewHolderImage) holder).getImageView());
             }
-//            Glide.with(SetImageBackground.this).load(Data.getBackgroundImageLockScreens().get(position).getPickImage()).into(((ViewHolderImage) holder).getImageView());
+//            Glide.with(SetImageBackground.this).load(Config.getBackgroundImageLockScreens().get(position).getPickImage()).into(((ViewHolderImage) holder).getImageView());
             ((ViewHolderImage) holder).getImageView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -92,7 +96,7 @@ public class SetImageBackground extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            return Data.getBackgroundImageLockScreens().size();
+            return Config.getBackgroundImageLockScreens().size();
         }
     }
 }

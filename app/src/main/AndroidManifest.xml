@@ -16,10 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="com.lhd.activity.Main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
+        </activity>
+        <activity android:name="com.lhd.activity.Test">
+
         </activity>
 
         <service
@@ -43,13 +43,32 @@
         <activity
             android:name="com.lhd.activity.ViewImageBackground"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-        <activity android:name="com.lhd.activity.Test">
+
+        <activity android:name="com.lhd.activity.SecurityQuestion" />
+
+        <activity android:name="com.lhd.activity.SelectTypeLock" />
+        <activity android:name="com.lhd.activity.SetImageBackground" />
+        <activity android:name="com.lhd.view.activity.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service
+            android:name="com.lhd.view.service.LockScreen"
+            android:process=".process" />
+        <activity android:name="com.lhd.activity.DisHome">
 
         </activity>
-        <activity android:name="com.lhd.activity.SecurityQuestion">
+        <activity android:name="com.lhd.view.activity.NormalActivity"></activity>
+        <activity android:name="com.lhd.view.activity.MaPinActivity">
 
         </activity>
+        <activity android:name="com.lhd.view.activity.SetPinActivity">
 
+        </activity>
+        <activity android:name="com.lhd.view.activity.PatternLockActivity">
+
+        </activity>
     </application>
-
 </manifest>

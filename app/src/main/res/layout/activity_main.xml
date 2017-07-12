@@ -13,10 +13,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="unlock" />
-    <com.lhd.object.RoundImageView
+    <com.lhd.model.object.RoundImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/type_1"></com.lhd.object.RoundImageView>
+        android:src="@drawable/type_1"></com.lhd.model.object.RoundImageView>
 
 </RelativeLayout>

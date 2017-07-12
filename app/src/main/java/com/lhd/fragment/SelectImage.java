@@ -13,9 +13,9 @@ import android.widget.ImageView;
 
 import com.lhd.activity.Main;
 import com.lhd.activity.ViewImageBackground;
-import com.lhd.config.Data;
+import com.lhd.model.config.Config;
 import com.lhd.demolock.R;
-import com.lhd.object.BackgroundImageLockScreen;
+import com.lhd.model.object.BackgroundImageLockScreen;
 
 /**
  * Created by D on 7/4/2017.
@@ -74,9 +74,9 @@ public class SelectImage extends Fragment {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
             if (position!=0){
-                BackgroundImageLockScreen.loadImage(main,Data.getBackgroundImageLockScreens().get(position).getPickImage(),((ViewHolderImage) holder).getImageView());
+                BackgroundImageLockScreen.loadImage(main, Config.getBackgroundImageLockScreens().get(position).getPickImage(),((ViewHolderImage) holder).getImageView());
             }
-//            Glide.with(main).load(Data.getBackgroundImageLockScreens().get(position).getPickImage()).into(((ViewHolderImage) holder).getImageView());
+//            Glide.with(main).load(Config.getBackgroundImageLockScreens().get(position).getPickImage()).into(((ViewHolderImage) holder).getImageView());
             ((ViewHolderImage) holder).getImageView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -101,7 +101,7 @@ public class SelectImage extends Fragment {
 
         @Override
         public int getItemCount() {
-            return Data.getBackgroundImageLockScreens().size();
+            return Config.getBackgroundImageLockScreens().size();
         }
     }
 }

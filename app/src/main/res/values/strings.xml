@@ -21,4 +21,7 @@
     <string name="question_2">Tên bộ phim bạn thích nhát</string>
     <string name="question_3">Tên thành phố bạn sinh ra</string>
     <string name="notity">Show notification</string>
+    <string name="normal_demo">test</string>
+    <string name="enter_pin">Nhập mã pin</string>
+    <string name="cancel">Cane</string>
 </resources>

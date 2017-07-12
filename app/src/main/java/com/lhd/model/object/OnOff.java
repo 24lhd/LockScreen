@@ -1,4 +1,4 @@
-package com.lhd.object;
+package com.lhd.model.object;
 
 /**
  * Created by D on 7/5/2017.
