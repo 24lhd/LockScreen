@@ -50,7 +50,7 @@
         android:layout_below="@+id/txt_time_lockscreen"
         android:layout_centerHorizontal="true"
         android:text="Ngày 15 tháng 10 năm 2014"
-        android:textColor="@color/color_text_2"
+        android:textColor="@color/color_white"
         android:textStyle="normal" />
 
 </RelativeLayout>

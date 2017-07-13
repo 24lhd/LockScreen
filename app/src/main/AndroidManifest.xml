@@ -56,7 +56,7 @@
         </activity>
         <service
             android:name="com.lhd.view.service.LockScreen"
-            android:process=".process" />
+         />
         <activity android:name="com.lhd.activity.DisHome">
 
         </activity>

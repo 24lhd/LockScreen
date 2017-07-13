@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
+import com.lhd.model.config.Config;
 import com.lhd.model.object.BackgroundImageLockScreen;
+import com.lhd.model.object.LockType;
 import com.orhanobut.hawk.Hawk;
 import com.takwolf.android.lock9.Lock9View;
 
@@ -54,6 +56,8 @@ public class NormalActivity extends AppCompatActivity {
                                       Main.showLog("password2 " + password2);
                                       if (password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
                                           tvNoti.setText("Đã lưu mấu hình của bạn");
+                                          Hawk.put(Config.TYPE_LOCK,new LockType(Config.MAU_HINH_TO,password1));
+                                          finish();
                                       } else if (!password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
                                           tvNoti.setText("Không khớp, Tạo lại mẫu hình của bạn");
                                           password2 = "";

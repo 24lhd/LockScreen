@@ -15,6 +15,10 @@ public class Config {
     public static final String SOUND = "SOUND";
     public static final String VIBRATION = "VIBRATION";
     public static final String FOMAT_TIME = "FOMAT_TIME";
+    public static final String TYPE_LOCK = "TYPE_LOCK";
+    public static final String MAU_HINH_TO = "MAU_HINH_TO";
+    public static final String LOCK_NONE = "LOCK_NONE";
+    public static final String MA_PIN = "MA_PIN";
     private static ArrayList<BackgroundImageLockScreen> backgroundImageLockScreens;
 
     public static ArrayList<BackgroundImageLockScreen> getBackgroundImageLockScreens() {

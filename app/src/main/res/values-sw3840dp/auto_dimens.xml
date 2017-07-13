@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	<dimen name="app_bar_elevation">60.00dp</dimen>
 	<dimen name="buttom_digital">840.00dp</dimen>
+	<dimen name="chieu_rong_buttom_pin">900.00dp</dimen>
 	<dimen name="dialog_enable_lockscreen_1">240.00dp</dimen>
 	<dimen name="dialog_enable_lockscreen_2">60.00dp</dimen>
 	<dimen name="dialog_enable_lockscreen_3">180.00dp</dimen>
@@ -11,4 +13,9 @@
 	<dimen name="layout_start_margin">300.00dp</dimen>
 	<dimen name="layout_start_parding_1">120.00dp</dimen>
 	<dimen name="layout_start_parding_2">480.00dp</dimen>
+	<dimen name="lineWidth_btn_pattern_lock">60.00dp</dimen>
+	<dimen name="margin_btn_pin">60.00dp</dimen>
+	<dimen name="padding_btn_pattern_lock">300.00dp</dimen>
+	<dimen name="padding_txt_top_title_lock">60.00dp</dimen>
+	<dimen name="spacing_btn_pattern_lock">600.00dp</dimen>
 </resources>

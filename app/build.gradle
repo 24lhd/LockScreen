@@ -34,9 +34,8 @@ dependencies {
     compile 'com.android.support:design:22.2.0'
     compile 'com.takwolf.android:lock9view:0.0.11'
     compile 'com.eftimoff:android-patternview:1.0.6@aar'
-    compile 'com.andrognito.pinlockview:pinlockview:2.0.1'
+    compile 'com.andrognito.pinlockview:pinlockview:1.0.1'
     compile 'com.andrognito.patternlockview:patternlockview:1.0.0'
-    // Optional, for RxJava2 adapter
     compile 'com.andrognito.patternlockview:patternlockview-reactive:1.0.0'
 
 }

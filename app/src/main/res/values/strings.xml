@@ -24,4 +24,5 @@
     <string name="normal_demo">test</string>
     <string name="enter_pin">Nhập mã pin</string>
     <string name="cancel">Cane</string>
+    <string name="instructions">123</string>
 </resources>

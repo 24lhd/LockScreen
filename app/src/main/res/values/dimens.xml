@@ -12,4 +12,10 @@
     <dimen name="buttom_digital">70dp</dimen>
     <dimen name="layout_margin_demo">5dp</dimen>
     <dimen name="app_bar_elevation">5dp</dimen>
+    <dimen name="chieu_rong_buttom_pin">75dp</dimen>
+    <dimen name="margin_btn_pin">5dp</dimen>
+    <dimen name="padding_btn_pattern_lock">25dp</dimen>
+    <dimen name="spacing_btn_pattern_lock">50dp</dimen>
+    <dimen name="lineWidth_btn_pattern_lock">5dp</dimen>
+    <dimen name="padding_txt_top_title_lock">5dp</dimen>
 </resources>

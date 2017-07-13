@@ -42,8 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:id="@+id/type_lock_partern"
-
+                android:id="@+id/type_vuot_to"
                 android:orientation="vertical">
 
                 <TextView
