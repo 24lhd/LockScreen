@@ -15,37 +15,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.lhd.activity.Main">
-
-        </activity>
-        <activity android:name="com.lhd.activity.Test">
-
-        </activity>
+        <activity android:name="com.lhd.activity.Main"></activity>
+        <activity android:name="com.lhd.activity.Test"></activity>
 
         <service
             android:name="com.lhd.service.MyService"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"></service>
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <service android:name="com.lhd.service.ShowLock" />
         <service android:name="com.lhd.service.FloatIcon" />
 
         <receiver android:name="com.lhd.broadcast.BroadcastScreenOnOff">
             <intent-filter>
-                <action android:name="android.intent.action.SCREEN_ON"></action>
-                <action android:name="android.intent.action.SCREEN_OFF"></action>
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="com.lhd.activity.Flag"
-            android:showOnLockScreen="true">
+        <activity android:name="com.lhd.activity.Flag">
+
 
         </activity>
         <activity
             android:name="com.lhd.activity.ViewImageBackground"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
-
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name="com.lhd.activity.SecurityQuestion" />
-
         <activity android:name="com.lhd.activity.SelectTypeLock" />
         <activity android:name="com.lhd.activity.SetImageBackground" />
         <activity android:name="com.lhd.view.activity.MainActivity">
@@ -54,21 +47,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name="com.lhd.view.service.LockScreen"
-         />
-        <activity android:name="com.lhd.activity.DisHome">
 
-        </activity>
-        <activity android:name="com.lhd.view.activity.NormalActivity"></activity>
-        <activity android:name="com.lhd.view.activity.MaPinActivity">
+        <service android:name="com.lhd.view.service.LockScreen" />
 
-        </activity>
-        <activity android:name="com.lhd.view.activity.SetPinActivity">
-
-        </activity>
-        <activity android:name="com.lhd.view.activity.PatternLockActivity">
+        <activity android:name="com.lhd.activity.DisHome"></activity>
+        <activity android:name="com.lhd.view.activity.NormalActivity" />
+        <activity android:name="com.lhd.view.activity.MaPinActivity"></activity>
+        <activity android:name="com.lhd.view.activity.SetPinActivity"></activity>
+        <activity android:name="com.lhd.view.activity.PatternLockActivity"></activity>
+        <activity
+            android:name="com.lhd.activity.Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
     </application>
+
 </manifest>

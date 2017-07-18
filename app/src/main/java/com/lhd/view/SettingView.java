@@ -17,5 +17,6 @@ public interface SettingView {
     public void set12h();
     public void notificationConfig();
     public void showAds();
+    public void loadStateView();
 
 }

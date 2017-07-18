@@ -1,7 +1,7 @@
 package com.lhd.model;
 
 import com.lhd.model.config.Config;
-import com.lhd.model.listenner.OnStartViewSetringChangeListenner;
+import com.lhd.model.listenner.OnStateChangeListenner;
 import com.lhd.model.object.OnOff;
 import com.lhd.view.fragment.SettingFragment;
 import com.orhanobut.hawk.Hawk;
@@ -16,27 +16,28 @@ public class SettingModelImpl implements SettingModel {
     }
 
     @Override
-    public void setEnableLock(boolean b, OnStartViewSetringChangeListenner listenner) {
+    public void setEnableLock(boolean b, OnStateChangeListenner listenner) {
         Hawk.put(Config.ENABLE_LOCK, new OnOff(b));
-//        listenner.onChange(Config.ENABLE_LOCK,b);
+
+        listenner.onChange(Config.ENABLE_LOCK,b);
     }
 
     @Override
-    public void setSound(boolean b, OnStartViewSetringChangeListenner listenner) {
+    public void setSound(boolean b, OnStateChangeListenner listenner) {
         Hawk.put(Config.SOUND, new OnOff(b));
-//        listenner.onChange(Config.SOUND,b);
+        listenner.onChange(Config.SOUND,b);
     }
 
     @Override
-    public void setVibration(boolean b, OnStartViewSetringChangeListenner listenner) {
+    public void setVibration(boolean b, OnStateChangeListenner listenner) {
         Hawk.put(Config.VIBRATION, new OnOff(b));
-//        listenner.onChange(Config.VIBRATION,b);
+        listenner.onChange(Config.VIBRATION,b);
     }
 
     @Override
-    public void setFomatTime(boolean b, OnStartViewSetringChangeListenner listenner) {
+    public void setFomatTime(boolean b, OnStateChangeListenner listenner) {
         Hawk.put(Config.FOMAT_TIME, new OnOff(b));
-//        listenner.onChange(Config.SOUND,b);
+        listenner.onChange(Config.SOUND,b);
     }
 
 //    @Override

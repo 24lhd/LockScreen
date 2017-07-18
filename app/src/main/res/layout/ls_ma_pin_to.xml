@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/blue_light"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/im_bg_pin_sc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_noti_input_pin_lock"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Enter Passcode"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tv_pin_input_screen_lock"
+                style="@style/Base.TextAppearance.AppCompat.Display1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:gravity="center"
+                android:inputType="numberPassword"
+                android:maxLength="4"
+                android:password="true"
+                android:text="1234"
+                android:textColor="@color/white" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_01"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a1bg"
+                    android:padding="0dp"
+                    android:tag="1"
+                    android:textColor="@color/color_white" />
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_02"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a2bg"
+                    android:padding="0dp"
+                    android:tag="2"
+                    android:textColor="@color/color_white" />
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_03"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a3bg"
+                    android:padding="0dp"
+                    android:tag="3"
+                    android:textColor="@color/color_white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_04"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a4bg"
+                    android:padding="0dp"
+                    android:tag="4"
+                    android:textColor="@color/color_white" />
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_05"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a5bg"
+                    android:padding="0dp"
+                    android:tag="5"
+                    android:textColor="@color/color_white" />
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_06"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a6bg"
+                    android:padding="0dp"
+                    android:tag="6"
+                    android:textColor="@color/color_white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_07"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a7bg"
+
+                    android:padding="0dp"
+                    android:tag="7"
+                    android:textColor="@color/color_white" />
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_08"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a8bg"
+                    android:padding="0dp"
+                    android:tag="8"
+                    android:textColor="@color/color_white" />
+
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_09"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:background="@drawable/a9bg"
+
+                    android:padding="0dp"
+                    android:tag="9"
+                    android:textColor="@color/color_white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:padding="0dp"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_call_white_36dp"
+                    android:id="@+id/tv_khan_cap_sc"
+                    android:textColor="@color/color_white" />
+                <Button
+                    android:id="@+id/btn_ma_pin_sc_00"
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:tag="0"
+                    android:background="@drawable/a0bg"
+                    android:padding="0dp"
+                    android:textColor="@color/color_white" />
+                <ImageView
+                    style="@style/Base.TextAppearance.AppCompat.Title"
+                    android:layout_width="@dimen/chieu_rong_buttom_pin"
+                    android:layout_height="@dimen/chieu_rong_buttom_pin"
+                    android:layout_margin="@dimen/margin_btn_pin"
+                    android:padding="0dp"
+                    android:src="@drawable/ic_backspace_white_36dp"
+                    android:scaleType="center"
+                    android:id="@+id/tv_xoa_pin_sc"
+                    android:textColor="@color/color_white" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

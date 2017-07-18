@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lhd.activity.Main;
+import com.lhd.adaptor.AdaptorLock;
 import com.lhd.demolock.R;
 import com.lhd.fragment.Setting;
 import com.lhd.model.config.Config;
@@ -57,6 +60,7 @@ public class LockScreen extends Service implements View.OnClickListener {
 
     @Override
     public void onCreate() {
+
         super.onCreate();
         Main.showLog("onReceive");
         Hawk.init(this).build();
@@ -134,8 +138,9 @@ public class LockScreen extends Service implements View.OnClickListener {
         textView.setText("Vẽ mấu hình mở khóa của bạn");
         lock9View.setCallBack(new Lock9View.CallBack() {
                                   public void onFinish(String password) {
-                                      Main.showLog(password);
-                                      if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().contains(password)) {
+                                      Main.showLog("mấu hình nhập" + password);
+                                      Main.showLog("mấu hình có" + ((LockType) Hawk.get(Config.TYPE_LOCK)).getPass());
+                                      if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(password)) {
                                           Main.showLog("unlock");
                                           unLock();
                                       } else
@@ -147,10 +152,11 @@ public class LockScreen extends Service implements View.OnClickListener {
     }
 
     TextView txtPin;
+
     private void setTypeMaPin() {
         LayoutInflater inflater = LayoutInflater.from(this);
         layout = inflater.inflate(R.layout.khoa_ma_pin, null);
-        ImageView imbg=layout.findViewById(R.id.im_bg_pin_sc);
+        ImageView imbg = layout.findViewById(R.id.im_bg_pin_sc);
         loadBackground(imbg);
         txtPin = (TextView) layout.findViewById(R.id.tv_pin_input_screen_lock);
         txtPin.setText("");
@@ -214,9 +220,9 @@ public class LockScreen extends Service implements View.OnClickListener {
         }
         if (pinInPut.length() == 4) {
             Main.showLog(pinInPut);
-            if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().contains(pinInPut)) {
+            if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(pinInPut)) {
                 Main.showLog("unlock");
-                pinInPut="";
+                pinInPut = "";
                 unLock();
             } else {
                 Animation shake = AnimationUtils.loadAnimation(this, R.anim.error_pin);
@@ -240,11 +246,18 @@ public class LockScreen extends Service implements View.OnClickListener {
                 try {
                     if (!isShowing && ((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue()) {
                         try {
-                            if (Config.MAU_HINH_TO.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
-                                setTypePatternTo();
-                            else if (Config.MA_PIN.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
-                                setTypeMaPin();
-                            else setTypeNone();
+                            LayoutInflater inflater = LayoutInflater.from(LockScreen.this);
+                            layout = inflater.inflate(R.layout.lock_screen_viewpager, null);
+                            AdaptorLock adaptorLock = new AdaptorLock();
+                            ViewPager mViewPager = (ViewPager) layout.findViewById(R.id.container);
+                            mViewPager.setAdapter(adaptorLock);
+                            mViewPager.setCurrentItem(0);
+//                            if (Config.MAU_HINH_TO.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
+//                                setTypePatternTo();
+//                            else if (Config.MA_PIN.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
+//                                setTypeMaPin();
+//                            else setTypeNone();
+                            Log.e("faker","ViewPager");
                         } catch (NullPointerException e) {
                             setTypeNone();
                         }

@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -15,7 +16,8 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
-    <style name="Theme.FloatingWindow.Popup" parent="@style/Theme.AppCompat.Light" >
+
+    <style name="Theme.FloatingWindow.Popup" parent="@style/Theme.AppCompat.Light">
         <item name="windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
         <item name="android:windowIsFloating">false</item>
@@ -31,4 +33,8 @@
         <item name="android:backgroundDimEnabled">false</item>
 
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

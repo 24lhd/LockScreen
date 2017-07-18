@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import com.lhd.activity.Main;
 import com.lhd.activity.SelectTypeLock;
 import com.lhd.activity.SetImageBackground;
 import com.lhd.demolock.R;
@@ -31,6 +31,9 @@ public class SettingFragment extends Fragment implements SettingView {
     private SettingPresenter settingPresenter;
     private View viewContent;
     Switch swEnableLock;
+    Switch swRung;
+    Switch swSound;
+    CheckBox cbTime;
 
     @Nullable
     @Override
@@ -39,14 +42,39 @@ public class SettingFragment extends Fragment implements SettingView {
         viewContent = inflater.inflate(R.layout.layout_setting, null);
         settingPresenter = new SettingPresenterImpl(this);
         swEnableLock = viewContent.findViewById(R.id.sw_enable_lock);
-        Main.showLog("SettingPresenterImpl");
+        swRung = viewContent.findViewById(R.id.sw_rung);
+        swSound = viewContent.findViewById(R.id.sw_sound);
+        cbTime = viewContent.findViewById(R.id.cbx_24h);
         swEnableLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Main.showLog("lol " + b);
                 if (b) settingPresenter.setOnLockScreen();
                 else
                     settingPresenter.setOffLockScreen();
+            }
+        });
+        swRung.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) settingPresenter.setOnVibration();
+                else
+                    settingPresenter.setOffVibration();
+            }
+        });
+        swSound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) settingPresenter.setOnSound();
+                else
+                    settingPresenter.setOffSound();
+            }
+        });
+        cbTime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) settingPresenter.set24h();
+                else
+                    settingPresenter.set12h();
             }
         });
         viewContent.findViewById(R.id.setting).setOnClickListener(new View.OnClickListener() {
@@ -67,22 +95,21 @@ public class SettingFragment extends Fragment implements SettingView {
 //                startSelectAnswer();
             }
         });
+        loadStateView();
         return viewContent;
     }
 
     @Override
     public void onLockScreen() {
-        Hawk.put(Config.ENABLE_LOCK, new OnOff(true));
+        settingPresenter.setOnVibration();
         intent = new Intent(getActivity(), LockScreen.class);
-
         getActivity().startService(intent);
     }
 
     @Override
     public void offLockScreen() {
-        Hawk.put(Config.ENABLE_LOCK, new OnOff(false));
+        settingPresenter.setOffVibration();
         intent = new Intent(getActivity(), LockScreen.class);
-
         getActivity().stopService(intent);
     }
 
@@ -102,32 +129,32 @@ public class SettingFragment extends Fragment implements SettingView {
 
     @Override
     public void onSound() {
-
+        settingPresenter.setOnSound();
     }
 
     @Override
     public void offSound() {
-
+        settingPresenter.setOffSound();
     }
 
     @Override
     public void onVibration() {
-
+        settingPresenter.setOnVibration();
     }
 
     @Override
     public void offVibration() {
-
+        settingPresenter.setOffVibration();
     }
 
     @Override
     public void set24h() {
-
+        settingPresenter.set24h();
     }
 
     @Override
     public void set12h() {
-
+        settingPresenter.set12h();
     }
 
     @Override
@@ -137,6 +164,35 @@ public class SettingFragment extends Fragment implements SettingView {
 
     @Override
     public void showAds() {
+
+    }
+
+    @Override
+    public void loadStateView() {
+
+        try {
+            swEnableLock.setChecked(((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue());
+        } catch (NullPointerException e) {
+            Hawk.put(Config.ENABLE_LOCK, new OnOff(false));
+        }
+        try {
+            swRung.setChecked(((OnOff) Hawk.get(Config.VIBRATION)).isTrue());
+        } catch (NullPointerException e) {
+            Hawk.put(Config.VIBRATION, new OnOff(false));
+        }
+        try {
+            swSound.setChecked(((OnOff) Hawk.get(Config.SOUND)).isTrue());
+        } catch (NullPointerException e) {
+            Hawk.put(Config.SOUND, new OnOff(false));
+
+        }
+        try {
+            cbTime.setChecked(((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue());
+        } catch (NullPointerException e) {
+            Hawk.put(Config.FOMAT_TIME, new OnOff(false));
+
+        }
+
 
     }
 

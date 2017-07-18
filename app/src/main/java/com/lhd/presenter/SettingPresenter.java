@@ -17,4 +17,6 @@ public interface SettingPresenter {
     public void set12h();
     public void setNotifi();
     public void setAds();
+    public void setLoadStateView();
+
 }

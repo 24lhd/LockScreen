@@ -5,15 +5,15 @@ import android.app.KeyguardManager;
 
 import com.lhd.model.SettingModel;
 import com.lhd.model.SettingModelImpl;
-import com.lhd.model.config.Config;
-import com.lhd.model.listenner.OnStartViewSetringChangeListenner;
+import com.lhd.model.listenner.OnStateChangeListenner;
 import com.lhd.view.fragment.SettingFragment;
 
 /**
  * Created by D on 7/7/2017.
+ *
  */
 
-public class SettingPresenterImpl implements SettingPresenter, OnStartViewSetringChangeListenner {
+public class SettingPresenterImpl implements SettingPresenter, OnStateChangeListenner {
     private SettingFragment settingFragment;
     private SettingModel settingModel;
 
@@ -86,24 +86,15 @@ public class SettingPresenterImpl implements SettingPresenter, OnStartViewSetrin
 
     }
 
+    @Override
+    public void setLoadStateView() {
+        settingFragment.loadStateView();
+    }
+
 
     @Override
     public void onChange(String tag, boolean b) {
-        switch (tag) {
-            case Config.ENABLE_LOCK:
-//                if (b) setOnLockScreen();
-//                else setOffLockScreen();
-                break;
-            case Config.FOMAT_TIME:
-
-                break;
-            case Config.SOUND:
-
-                break;
-            case Config.VIBRATION:
-
-                break;
-        }
+        settingFragment.loadStateView();
     }
 
 }

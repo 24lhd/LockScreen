@@ -2,14 +2,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ImageView
+        android:id="@+id/im_bg_lockscreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="center"
-        android:id="@+id/im_bg_lockscreen"
         android:src="@drawable/ic_add_a_photo_black_36dp" />
-
     <android.support.v4.widget.SlidingPaneLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,7 +22,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 app:lock9_autoLink="false"
-                app:lock9_enableVibrate="false"
+                app:lock9_enableVibrate="true"
                 app:lock9_lineColor="@color/color_white"
                 app:lock9_lineWidth="@dimen/lineWidth_btn_pattern_lock"
                 app:lock9_nodeOnAnim="@anim/node_on_1"
@@ -34,38 +32,29 @@
                 app:lock9_spacing="@dimen/spacing_btn_pattern_lock"
                 app:lock9_vibrateTime="30" />
         </RelativeLayout>
-
-
         <android.support.v4.widget.SlidingPaneLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/SlidingPanel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layoutDirection="rtl">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Man quang cao" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Man hinh chinh" />
             </LinearLayout>
         </android.support.v4.widget.SlidingPaneLayout>
-
     </android.support.v4.widget.SlidingPaneLayout>
-
-
 </RelativeLayout>
