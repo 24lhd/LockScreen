@@ -25,14 +25,12 @@ public class SettingPresenterImpl implements SettingPresenter, OnStateChangeList
     @Override
     public void setOnLockScreen() {
         ((KeyguardManager) settingFragment.getActivity().getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock( settingFragment.getActivity().getPackageName()).disableKeyguard();
-        settingModel.setEnableLock(true, this);
         settingFragment.onLockScreen();
     }
 
     @Override
     public void setOffLockScreen() {
         ((KeyguardManager)  settingFragment.getActivity().getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(settingFragment.getActivity().getPackageName()).reenableKeyguard();
-        settingModel.setEnableLock(false, this);
         settingFragment.offLockScreen();
     }
 

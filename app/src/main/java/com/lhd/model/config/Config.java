@@ -19,6 +19,7 @@ public class Config {
     public static final String MAU_HINH_TO = "MAU_HINH_TO";
     public static final String LOCK_NONE = "LOCK_NONE";
     public static final String MA_PIN = "MA_PIN";
+    public static final String MAU_HINH_SMALL = "MAU_HINH_SMALL";
     private static ArrayList<BackgroundImageLockScreen> backgroundImageLockScreens;
 
     public static ArrayList<BackgroundImageLockScreen> getBackgroundImageLockScreens() {

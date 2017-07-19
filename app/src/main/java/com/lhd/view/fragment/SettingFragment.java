@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-import com.lhd.activity.SelectTypeLock;
+import com.lhd.view.activity.SelectTypeLock;
 import com.lhd.activity.SetImageBackground;
 import com.lhd.demolock.R;
 import com.lhd.model.config.Config;
@@ -101,14 +101,12 @@ public class SettingFragment extends Fragment implements SettingView {
 
     @Override
     public void onLockScreen() {
-        settingPresenter.setOnVibration();
         intent = new Intent(getActivity(), LockScreen.class);
         getActivity().startService(intent);
     }
 
     @Override
     public void offLockScreen() {
-        settingPresenter.setOffVibration();
         intent = new Intent(getActivity(), LockScreen.class);
         getActivity().stopService(intent);
     }

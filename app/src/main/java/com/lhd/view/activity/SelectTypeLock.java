@@ -1,4 +1,4 @@
-package com.lhd.activity;
+package com.lhd.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +12,6 @@ import com.lhd.demolock.R;
 import com.lhd.model.config.Config;
 import com.lhd.model.object.BackgroundImageLockScreen;
 import com.lhd.model.object.LockType;
-import com.lhd.view.activity.NormalActivity;
-import com.lhd.view.activity.SetPinActivity;
 import com.orhanobut.hawk.Hawk;
 
 /**
@@ -50,7 +48,15 @@ public class SelectTypeLock extends AppCompatActivity {
         ( findViewById(R.id.type_vuot_to)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SelectTypeLock.this, NormalActivity.class);
+                Intent intent = new Intent(SelectTypeLock.this, SetLockLargeActivity.class);
+                startActivity(intent);
+               overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
+            }
+        });
+        ( findViewById(R.id.type_lock_partern_small)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SelectTypeLock.this, SetLockSmallActivity.class);
                 startActivity(intent);
                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }

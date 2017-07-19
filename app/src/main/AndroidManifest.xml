@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lhd.demolock">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <permission android:name="android.permission.CALL_PRIVILEGED" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission
         android:name="android.permission.DISABLE_KEYGUARD"
@@ -17,7 +19,6 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.lhd.activity.Main"></activity>
         <activity android:name="com.lhd.activity.Test"></activity>
-
         <service
             android:name="com.lhd.service.MyService"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
@@ -32,14 +33,12 @@
         </receiver>
 
         <activity android:name="com.lhd.activity.Flag">
-
-
         </activity>
         <activity
             android:name="com.lhd.activity.ViewImageBackground"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name="com.lhd.activity.SecurityQuestion" />
-        <activity android:name="com.lhd.activity.SelectTypeLock" />
+        <activity android:name="com.lhd.view.activity.SelectTypeLock" />
         <activity android:name="com.lhd.activity.SetImageBackground" />
         <activity android:name="com.lhd.view.activity.MainActivity">
             <intent-filter>
@@ -51,16 +50,16 @@
         <service android:name="com.lhd.view.service.LockScreen" />
 
         <activity android:name="com.lhd.activity.DisHome"></activity>
-        <activity android:name="com.lhd.view.activity.NormalActivity" />
         <activity android:name="com.lhd.view.activity.MaPinActivity"></activity>
         <activity android:name="com.lhd.view.activity.SetPinActivity"></activity>
-        <activity android:name="com.lhd.view.activity.PatternLockActivity"></activity>
         <activity
             android:name="com.lhd.activity.Main2Activity"
             android:label="@string/title_activity_main2"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
+        <activity android:name="com.lhd.view.activity.SetLockSmallActivity"></activity>
+        <activity android:name="com.lhd.view.activity.SetLockLargeActivity"></activity>
     </application>
 
 </manifest>

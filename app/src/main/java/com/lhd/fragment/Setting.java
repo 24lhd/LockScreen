@@ -21,7 +21,7 @@ import android.widget.Switch;
 
 import com.lhd.activity.Main;
 import com.lhd.activity.SecurityQuestion;
-import com.lhd.activity.SelectTypeLock;
+import com.lhd.view.activity.SelectTypeLock;
 import com.lhd.activity.SetImageBackground;
 import com.lhd.demolock.R;
 import com.lhd.model.object.OnOff;

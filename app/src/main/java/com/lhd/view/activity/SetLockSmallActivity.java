@@ -14,11 +14,15 @@ import com.lhd.model.object.LockType;
 import com.orhanobut.hawk.Hawk;
 import com.takwolf.android.lock9.Lock9View;
 
-public class NormalActivity extends AppCompatActivity {
+/**
+ * Created by D on 7/18/2017.
+ */
+
+public class SetLockSmallActivity  extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_normal);
+        setContentView(R.layout.set_lock_type_small);
         setViewLockNormal();
         Hawk.init(this).build();
     }
@@ -56,7 +60,7 @@ public class NormalActivity extends AppCompatActivity {
                                       Main.showLog("password2 " + password2);
                                       if (password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
                                           tvNoti.setText("Đã lưu mấu hình của bạn");
-                                          Hawk.put(Config.TYPE_LOCK,new LockType(Config.MAU_HINH_TO,password1));
+                                          Hawk.put(Config.TYPE_LOCK,new LockType(Config.MAU_HINH_SMALL,password1));
                                           finish();
                                       } else if (!password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
                                           tvNoti.setText("Không khớp, Tạo lại mẫu hình của bạn");

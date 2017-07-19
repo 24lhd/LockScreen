@@ -8,9 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.IBinder;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.os.Vibrator;
+import android.support.v4.widget.SlidingPaneLayout;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +25,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lhd.activity.Main;
-import com.lhd.adaptor.AdaptorLock;
 import com.lhd.demolock.R;
 import com.lhd.fragment.Setting;
 import com.lhd.model.config.Config;
@@ -31,6 +33,9 @@ import com.lhd.model.object.LockType;
 import com.lhd.model.object.OnOff;
 import com.orhanobut.hawk.Hawk;
 import com.takwolf.android.lock9.Lock9View;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 import static android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
@@ -46,6 +51,35 @@ public class LockScreen extends Service implements View.OnClickListener {
     private boolean isShowing = false;
     private Button btUnLock;
     private View layout;
+
+    public String time12() {
+        Date date = new Date();
+        date.setHours(date.getHours());
+        SimpleDateFormat simpDate;
+        simpDate = new SimpleDateFormat("h:mm");
+        Main.showLog(simpDate.format(date));
+        return simpDate.format(date);
+    }
+
+
+    public String time24() {
+        Date date = new Date();
+        date.setHours(date.getHours());
+        SimpleDateFormat simpDate;
+        simpDate = new SimpleDateFormat("HH:mm");
+        Main.showLog(simpDate.format(date));
+        return simpDate.format(date);
+    }
+
+    public String date() {
+        Date date = new Date();
+        String dayOfTheWeek = (String) DateFormat.format("EEEE", date); // Thursday
+        String day = (String) DateFormat.format("dd", date); // 20
+        String monthString = (String) DateFormat.format("MMM", date); // Jun
+        String monthNumber = (String) DateFormat.format("MM", date); // 06
+        String year = (String) DateFormat.format("yyyy", date); // 2013
+        return dayOfTheWeek + " " + day + " " + monthString + " " + year;
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -113,6 +147,7 @@ public class LockScreen extends Service implements View.OnClickListener {
     }
 
     private void unLock() {
+        if (((OnOff) Hawk.get(Config.SOUND)).isTrue()) playSound(LockScreen.this);
         windowManager.removeViewImmediate(layout);
         isShowing = false;
     }
@@ -128,42 +163,101 @@ public class LockScreen extends Service implements View.OnClickListener {
     }
 
     private void setTypePatternTo() {
+        SlidingPaneLayout slidingPaneLayout;
         LayoutInflater inflater = LayoutInflater.from(this);
-        layout = inflater.inflate(R.layout.khoa_vuot_tron_to_layout, null);
-        Lock9View lock9View;
-        final TextView textView = layout.findViewById(R.id.txt_content_vuot_to_lock);
-        lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view);
-        imgBackground = layout.findViewById(R.id.bg_im_lock_tron_to);
-        loadBackground(imgBackground);
-        textView.setText("Vẽ mấu hình mở khóa của bạn");
-        lock9View.setCallBack(new Lock9View.CallBack() {
-                                  public void onFinish(String password) {
-                                      Main.showLog("mấu hình nhập" + password);
-                                      Main.showLog("mấu hình có" + ((LockType) Hawk.get(Config.TYPE_LOCK)).getPass());
-                                      if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(password)) {
-                                          Main.showLog("unlock");
-                                          unLock();
-                                      } else
-                                          textView.setText("Mẫ hình không đúng, thử lại");
+        if (((OnOff) Hawk.get(Config.VIBRATION)).isTrue()) {
+            layout = inflater.inflate(R.layout.ls_pattern_large_vibrate_layout, null);
+            Lock9View lock9View;
+            TextView textTime = layout.findViewById(R.id.txt_time_ls_pattern_large_vibrate_layout);
+            if (((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue())
+                textTime.setText(time24());
+            else textTime.setText(time12());
+            TextView textDate = layout.findViewById(R.id.txt_date_ls_pattern_large_vibrate_layout);
+            textDate.setText(date());
+            lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_large_vibrate_layout);
+            imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_large_vibrate_layout);
+            ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_large_vibrate_layout);
+            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
+                }
+            });
+            loadBackground(imgBackground);
+//        textView.setText("Vẽ mấu hình mở khóa của bạn");
+            lock9View.setCallBack(new Lock9View.CallBack() {
+                                      public void onFinish(String password) {
+                                          if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(password))
+
+                                              unLock();
+                                      }
                                   }
-                              }
-        );
+            );
+        } else {
+            layout = inflater.inflate(R.layout.ls_pattern_large_no_vibrate_layout, null);
+            Lock9View lock9View;
+            TextView textTime = layout.findViewById(R.id.txt_time_ls_pattern_large_no_vibrate_layout);
+            if (((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue())
+                textTime.setText(time24());
+            else textTime.setText(time12());
+            TextView textDate = layout.findViewById(R.id.txt_date_ls_pattern_large_no_vibrate_layout);
+            textDate.setText(date());
+            lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_large_no_vibrate_layout);
+            imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_large_no_vibrate_layout);
+            ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_large_no_vibrate_layout);
+            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            loadBackground(imgBackground);
+//        textView.setText("Vẽ mấu hình mở khóa của bạn");
+            lock9View.setCallBack(new Lock9View.CallBack() {
+                                      public void onFinish(String password) {
+                                          if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(password))
+                                              unLock();
+                                      }
+                                  }
+            );
+        }
+
+    }
+
+    private void playSound(Context context) {
+//        try {
+//            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//            Ringtone r = RingtoneManager.getRingtone(main.getApplicationContext(), notification);
+//            r.play();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        MediaPlayer mp = MediaPlayer.create(context, R.raw.a);
+        mp.start();
+
     }
 
     TextView txtPin;
 
     private void setTypeMaPin() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        layout = inflater.inflate(R.layout.khoa_ma_pin, null);
-        ImageView imbg = layout.findViewById(R.id.im_bg_pin_sc);
+        layout = inflater.inflate(R.layout.ls_ma_pin_to, null);
+        ImageView imbg = layout.findViewById(R.id.im_bg_lockscreen_ls_ma_pin_to);
+        ImageView imbgNone = layout.findViewById(R.id.im_bg_lockscreen_none_ls_ma_pin_to);
+        imbgNone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         loadBackground(imbg);
-        txtPin = (TextView) layout.findViewById(R.id.tv_pin_input_screen_lock);
+        txtPin = (TextView) layout.findViewById(R.id.tv_pin_input_screen_lock_ls_ma_pin_to);
         txtPin.setText("");
-        ImageView txtXoaPin = (ImageView) layout.findViewById(R.id.tv_xoa_pin_sc);
+        ImageView txtXoaPin = (ImageView) layout.findViewById(R.id.tv_xoa_pin_sc_ls_ma_pin_to);
         txtXoaPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (((OnOff) Hawk.get(Config.VIBRATION)).isTrue()) playVibiration(LockScreen.this);
                 if (pinInPut.length() > 0) {
                     pinInPut = pinInPut.substring(0, pinInPut.length() - 1);
                     txtPin.setText(pinInPut);
@@ -171,16 +265,16 @@ public class LockScreen extends Service implements View.OnClickListener {
                 }
             }
         });
-//
-        ImageView txtKhanCap = (ImageView) layout.findViewById(R.id.tv_khan_cap_sc);
-        txtXoaPin.setOnClickListener(new View.OnClickListener() {
+        ImageView txtKhanCap = (ImageView) layout.findViewById(R.id.tv_khan_cap_sc_ls_ma_pin_to);
+        txtKhanCap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pinInPut.length() > 0) {
-                    pinInPut = pinInPut.substring(0, pinInPut.length() - 1);
-                    txtPin.setText(pinInPut);
-                    txtPin.clearAnimation();
-                }
+                if (((OnOff) Hawk.get(Config.VIBRATION)).isTrue()) playVibiration(LockScreen.this);
+                String number = "7777777777";
+                Uri call = Uri.parse("tel:" + number);
+                Intent surf = new Intent(Intent.ACTION_CALL, call);
+                surf.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                startActivity(surf);
             }
         });
         Button button01 = layout.findViewById(R.id.btn_ma_pin_sc_01);
@@ -210,8 +304,15 @@ public class LockScreen extends Service implements View.OnClickListener {
         return START_STICKY;
     }
 
+    private void playVibiration(Context context) {
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(30);
+    }
+
     @Override
     public void onClick(View view) {
+        if (((OnOff) Hawk.get(Config.VIBRATION)).isTrue()) playVibiration(LockScreen.this);
         String pin = (String) view.getTag();
         if (pinInPut.length() < 4) {
             pinInPut = txtPin.getText().toString() + pin;
@@ -223,11 +324,11 @@ public class LockScreen extends Service implements View.OnClickListener {
             if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(pinInPut)) {
                 Main.showLog("unlock");
                 pinInPut = "";
+
                 unLock();
             } else {
                 Animation shake = AnimationUtils.loadAnimation(this, R.anim.error_pin);
                 txtPin.startAnimation(shake);
-
             }
         }
 
@@ -246,27 +347,21 @@ public class LockScreen extends Service implements View.OnClickListener {
                 try {
                     if (!isShowing && ((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue()) {
                         try {
-                            LayoutInflater inflater = LayoutInflater.from(LockScreen.this);
-                            layout = inflater.inflate(R.layout.lock_screen_viewpager, null);
-                            AdaptorLock adaptorLock = new AdaptorLock();
-                            ViewPager mViewPager = (ViewPager) layout.findViewById(R.id.container);
-                            mViewPager.setAdapter(adaptorLock);
-                            mViewPager.setCurrentItem(0);
-//                            if (Config.MAU_HINH_TO.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
-//                                setTypePatternTo();
-//                            else if (Config.MA_PIN.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
-//                                setTypeMaPin();
-//                            else setTypeNone();
-                            Log.e("faker","ViewPager");
+                            if (Config.MAU_HINH_SMALL.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
+                                setTypePatternSmall();
+                            else if (Config.MAU_HINH_TO.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
+                                setTypePatternTo();
+                            else if (Config.MA_PIN.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
+                                setTypeMaPin();
+                            else setTypeNone();
                         } catch (NullPointerException e) {
+                            Main.showLog(e.getMessage());
                             setTypeNone();
                         }
-
                         windowManager.addView(layout, params);
                         isShowing = true;
                     }
                 } catch (NullPointerException e) {
-                    Main.showLog("NullPointerException");
                     Hawk.put(Config.ENABLE_LOCK, new OnOff(false));
                 }
             } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
@@ -279,6 +374,66 @@ public class LockScreen extends Service implements View.OnClickListener {
         }
     }
 
+    private void setTypePatternSmall() {
+        SlidingPaneLayout slidingPaneLayout;
+        LayoutInflater inflater = LayoutInflater.from(this);
+        if (((OnOff) Hawk.get(Config.VIBRATION)).isTrue()) {
+            layout = inflater.inflate(R.layout.ls_pattern_small_vibrate_layout, null);
+            Lock9View lock9View;
+            TextView textTime = layout.findViewById(R.id.txt_time_ls_pattern_small_vibrate_layout);
+            if (((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue())
+                textTime.setText(time24());
+            else textTime.setText(time12());
+            TextView textDate = layout.findViewById(R.id.txt_date_ls_pattern_small_vibrate_layout);
+            textDate.setText(date());
+            lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_small_vibrate_layout);
+            imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_small_vibrate_layout);
+            ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_small_vibrate_layout);
+            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            loadBackground(imgBackground);
+//        textView.setText("Vẽ mấu hình mở khóa của bạn");
+            lock9View.setCallBack(new Lock9View.CallBack() {
+                                      public void onFinish(String password) {
+                                          if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(password))
+                                              unLock();
+                                      }
+                                  }
+            );
+        } else {
+            layout = inflater.inflate(R.layout.ls_pattern_small_no_vibrate_layout, null);
+            Lock9View lock9View;
+            TextView textTime = layout.findViewById(R.id.txt_time_ls_pattern_small_no_vibrate_layout);
+            if (((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue())
+                textTime.setText(time24());
+            else textTime.setText(time12());
+            TextView textDate = layout.findViewById(R.id.txt_date_ls_pattern_small_no_vibrate_layout);
+            textDate.setText(date());
+            lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_small_no_vibrate_layout);
+            imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_small_no_vibrate_layout);
+            ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_small_no_vibrate_layout);
+            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            loadBackground(imgBackground);
+//        textView.setText("Vẽ mấu hình mở khóa của bạn");
+            lock9View.setCallBack(new Lock9View.CallBack() {
+                                      public void onFinish(String password) {
+                                          if (((LockType) Hawk.get(Config.TYPE_LOCK)).getPass().equals(password))
+                                              unLock();
+                                      }
+                                  }
+            );
+        }
+    }
+
 
     @Override
     public void onDestroy() {
@@ -286,7 +441,6 @@ public class LockScreen extends Service implements View.OnClickListener {
             unregisterReceiver(mReceiver);
         }
         if (isShowing) {
-            Main.showLog("removeViewImmediate");
             windowManager.removeViewImmediate(layout);
             ((KeyguardManager) getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(getPackageName()).reenableKeyguard();
             isShowing = false;

@@ -14,7 +14,7 @@ public class Flag extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ls_ma_pin_to);
+        setContentView(R.layout.demo_sliding);
     }
 
 
