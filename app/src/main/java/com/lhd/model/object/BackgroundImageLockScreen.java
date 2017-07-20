@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.orhanobut.hawk.Hawk;
 
-import static com.lhd.activity.Main.IMAGE_BACKGROUND;
+import static com.lhd.model.config.Config.IMAGE_BACKGROUND;
 
 /**
  * Created by D on 7/5/2017.

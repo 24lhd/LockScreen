@@ -63,5 +63,5 @@
         android:id="@+id/tv_date_view"
         android:layout_below="@+id/tv_time_view"
         android:layout_centerHorizontal="true"
-      />
+        />
 </RelativeLayout>

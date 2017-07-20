@@ -35,6 +35,17 @@
                 app:lock9_padding="@dimen/padding_btn_pattern_lock"
                 app:lock9_spacing="@dimen/spacing_btn_pattern_lock"
                 app:lock9_vibrateTime="30" />
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/color_none"
+                android:id="@+id/lock_9_view_ls_pattern_small_vibrate_txt_pin_2"
+                android:layout_centerInParent="true"
+                android:layout_below="@+id/lock_9_view_ls_pattern_small_vibrate_layout"
+                android:gravity="center"
+                android:text="@string/txt_forget_pass"
+                android:textColor="@color/color_white" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -50,12 +61,12 @@
             <TextView
                 android:id="@+id/btn_unlock_screen"
                 style="@style/Base.TextAppearance.AppCompat.Title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/color_none"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="36dp"
-                android:elevation="7dp"
                 android:gravity="center|bottom"
                 android:text="@string/txt_view_onlock"
                 android:textColor="@color/color_white" />
@@ -65,6 +76,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Display4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/color_none"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
@@ -81,8 +93,16 @@
                 android:layout_below="@+id/txt_time_ls_pattern_small_vibrate_layout"
                 android:layout_centerHorizontal="true"
                 android:text="Ngày 15 tháng 10 năm 2014"
+                android:background="@color/color_none"
                 android:textColor="@color/color_white"
                 android:textStyle="normal" />
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:id="@+id/rcv_noti_ls_pattern_small_vibrate_layout"
+                android:layout_below="@+id/txt_date_ls_pattern_small_vibrate_layout"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
         </RelativeLayout>
 
     </android.support.v4.widget.SlidingPaneLayout>

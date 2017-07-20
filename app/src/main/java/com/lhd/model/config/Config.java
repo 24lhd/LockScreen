@@ -20,6 +20,14 @@ public class Config {
     public static final String LOCK_NONE = "LOCK_NONE";
     public static final String MA_PIN = "MA_PIN";
     public static final String MAU_HINH_SMALL = "MAU_HINH_SMALL";
+    public static final int SELECTED_TYPE = 1020;
+    public static final String BACKGROUND_FROM_DRAWABLE = "BACKGROUND_FROM_DRAWABLE";
+    public static final String BACKGROUND_FROM_STORE = "BACKGROUND_FROM_STORE";
+    public static final String IMAGE_BACKGROUND_FLAG = "IMAGE_BACKGROUND_FLAG";
+    public static final String IMAGE_BACKGROUND = "IMAGE_BACKGROUND";
+    public static final int SELECTED_IMAGE_BACKGROUND = 1021;
+    public static final int SELECTED_IMAGE_STORE_BACKGROUND = 1012;
+    public static final String PIN_CAP_2 = "PIN_CAP_2";
     private static ArrayList<BackgroundImageLockScreen> backgroundImageLockScreens;
 
     public static ArrayList<BackgroundImageLockScreen> getBackgroundImageLockScreens() {

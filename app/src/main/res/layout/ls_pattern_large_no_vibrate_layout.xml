@@ -35,6 +35,16 @@
                 app:lock9_padding="@dimen/padding_btn_pattern_lock"
                 app:lock9_spacing="@dimen/spacing_btn_pattern_lock"
                 app:lock9_vibrateTime="30" />
+            <TextView
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lock_9_view_ls_pattern_large_no_vibrate_layout"
+                android:layout_centerInParent="true"
+                android:background="@color/color_none"
+                android:gravity="center"
+                android:text="@string/txt_forget_pass"
+                android:textColor="@color/color_white" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -54,6 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
+                android:background="@color/color_none"
                 android:layout_marginBottom="36dp"
                 android:gravity="center|bottom"
                 android:text="@string/txt_view_onlock"
@@ -64,6 +75,7 @@
                 style="@style/Base.TextAppearance.AppCompat.Display4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@color/color_none"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="35dp"
@@ -76,6 +88,7 @@
                 android:id="@+id/txt_date_ls_pattern_large_no_vibrate_layout"
                 style="@style/Base.TextAppearance.AppCompat.Medium"
                 android:layout_width="wrap_content"
+                android:background="@color/color_none"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_time_ls_pattern_large_no_vibrate_layout"
                 android:layout_centerHorizontal="true"

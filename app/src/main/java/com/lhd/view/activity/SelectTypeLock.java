@@ -41,7 +41,7 @@ public class SelectTypeLock extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectTypeLock.this, SetPinActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,Config.SELECTED_TYPE);
                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
@@ -49,7 +49,7 @@ public class SelectTypeLock extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectTypeLock.this, SetLockLargeActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,Config.SELECTED_TYPE);
                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
@@ -57,7 +57,7 @@ public class SelectTypeLock extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SelectTypeLock.this, SetLockSmallActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,Config.SELECTED_TYPE);
                overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
             }
         });
@@ -65,12 +65,18 @@ public class SelectTypeLock extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Hawk.put(Config.TYPE_LOCK,new LockType(Config.LOCK_NONE,""));
-
+                finish();
             }
         });
         BackgroundImageLockScreen.loadImage(this, "" + R.drawable.type_3, (ImageView) findViewById(R.id.im_type_3));
         ((TextView) findViewById(R.id.txt_ten_type_3)).setText("Kiểu 3");
         BackgroundImageLockScreen.loadImage(this, "" + R.drawable.type_1, (ImageView) findViewById(R.id.im_type_4));
         ((TextView) findViewById(R.id.txt_ten_type_4)).setText("Kiểu 4");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==Config.SELECTED_TYPE) finish();
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

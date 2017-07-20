@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.lhd.activity.Main;
-import com.lhd.activity.ViewImageBackground;
 import com.lhd.model.config.Config;
 import com.lhd.demolock.R;
 import com.lhd.model.object.BackgroundImageLockScreen;
@@ -87,11 +86,11 @@ public class SelectImage extends Fragment {
                         main.startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
                         return;
                     }
-                    Intent intent=new Intent(main,ViewImageBackground.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putInt(Main.INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN,position);
-                    intent.putExtras(bundle);
-                    main.startActivity(intent);
+//                    Intent intent=new Intent(main,ViewImageBackground.class);
+//                    Bundle bundle=new Bundle();
+//                    bundle.putInt(Config.IMAGE_BACKGROUND,position);
+//                    intent.putExtras(bundle);
+//                    main.startActivity(intent);
                     main.overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
 
                 }

@@ -89,7 +89,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/chon_cau_hoi"
+            android:id="@+id/thay_cau_hoi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

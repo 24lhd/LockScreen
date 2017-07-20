@@ -1,16 +1,21 @@
 package com.lhd.view.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.lhd.activity.Main;
 import com.lhd.demolock.R;
 import com.lhd.model.config.Config;
 import com.lhd.model.object.BackgroundImageLockScreen;
@@ -27,21 +32,23 @@ public class SetPinActivity extends AppCompatActivity {
     TextView txtPin;
     TextView txtInputPin;
     ImageView imBg;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_pin_layout);
-        txtPin = (TextView) findViewById(R.id.tv_pin_input);
-        imBg= (ImageView) findViewById(R.id.im_bg_set_pin);
-        txtInputPin = (TextView) findViewById(R.id.txt_noti_input_pin_lock);
+        Hawk.init(this).build();
+        txtPin = (TextView) findViewById(R.id.tv_pin_input_txt_noti_input_pin_set_pin_layout);
+        imBg = (ImageView) findViewById(R.id.im_bg_set_pin);
+        txtInputPin = (TextView) findViewById(R.id.txt_noti_input_pin_set_pin_layout);
         txtInputPin.setText("Nhập mã pin gồm 4 chữ số");
         txtPin.setText("");
-        Hawk.init(this).build();
         loadBackground(imBg);
     }
+
     public void loadBackground(ImageView imgBackground) {
         try {
-            loadImage(this, ((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getPickImage(), imgBackground);
+            loadImage(this, ((BackgroundImageLockScreen) Hawk.get(Config.IMAGE_BACKGROUND)).getPickImage(), imgBackground);
         } catch (NullPointerException e) {
             loadImage(this, "" + R.drawable.bg2, imgBackground);
         } catch (ClassCastException e) {
@@ -67,6 +74,42 @@ public class SetPinActivity extends AppCompatActivity {
     String password1 = "";
     String password2 = "";
 
+    private void setPinCodeCap2(final Context context) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View viewContent = View.inflate(context, R.layout.set_pin_cap_2, null);
+        builder.setView(viewContent);
+        Button btnSubmit = viewContent.findViewById(R.id.set_pin_cap2_btn_submit);
+        final EditText edtInput1 = viewContent.findViewById(R.id.set_pin_cap2_txt_input_ma_pin_1);
+        final EditText edtInput2 = viewContent.findViewById(R.id.set_pin_cap2_txt_input_ma_pin_2);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setView(viewContent);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input1 = edtInput1.getText().toString();
+                String input2 = edtInput2.getText().toString();
+                if (input1.length() < 4)
+                    Toast.makeText(context, "Bạn hãy nhập đầy đủ 4 kí tự", Toast.LENGTH_SHORT).show();
+                else if (!input1.equals(input2)) {
+                    Toast.makeText(context, "Mã pin nhập không giống nhau", Toast.LENGTH_SHORT).show();
+                } else {
+                    Hawk.put(Config.PIN_CAP_2, input1);
+                    Hawk.put(Config.TYPE_LOCK, new LockType(Config.MA_PIN, password1));
+                    Toast.makeText(context, "Đã tạo mật khẩu cấp 2", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                    finish();
+                }
+            }
+        });
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                Toast.makeText(context, "alertDialog onDismiss", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog.show();
+    }
+
     private void checkPassCode() {
         if (password1.equals("")) {
             password1 = pinInPut;
@@ -76,14 +119,11 @@ public class SetPinActivity extends AppCompatActivity {
         } else if (password2.equals("")) {
             password2 = pinInPut;
         }
-        Main.showLog("password1 " + password1);
-        Main.showLog("password2 " + password2);
-
         if (password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
             txtInputPin.setText("Đã lưu lại mã pin của bạn");
             txtPin.setText("");
-            Hawk.put(Config.TYPE_LOCK,new LockType(Config.MA_PIN,password1));
-            finish();
+            setPinCodeCap2(this);
+
         } else if (!password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
             txtInputPin.setText("Không khớp, Tạo lại mã pin của bạn");
             Animation shake = AnimationUtils.loadAnimation(this, R.anim.error_pin);
@@ -119,6 +159,7 @@ public class SetPinActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();

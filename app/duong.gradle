@@ -324,3 +324,10 @@ createDimen {
   type = DimenType.FROM_DIMEN_FILE
   dimenFileName = 'values/dimens.xml' // name of file, for type = DimenType.FROM_DIMEN_FILE only
 }
+/**
+ ./gradlew tasks
+
+ Ok done. Bạn có thể thay đổi các tham số từ method createDimen ở trên theo ý của bạn rồi run lệnh
+
+ ./gradlew createDimen
+ **/

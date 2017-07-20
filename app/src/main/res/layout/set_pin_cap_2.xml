@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tạo mã pin dự phòng" />
+
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+        android:text="Nếu bạn quên mã pin thực sự thì có thể dùng mã pin này để mở khóa" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/dialog_enable_lockscreen_2"
+            android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+            android:text="Mã pin" />
+
+
+    </LinearLayout>
+
+    <EditText
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:inputType="number"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/set_pin_cap2_txt_input_ma_pin_1"
+        android:maxLength="4"
+        android:background="@drawable/shape_edit_text_answer"
+        android:padding="10dp"
+        android:password="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/TextAppearance.AppCompat.Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingBottom="@dimen/dialog_enable_lockscreen_2"
+            android:paddingTop="@dimen/dialog_enable_lockscreen_2"
+            android:text="Nhập lại mã pin" />
+
+
+    </LinearLayout>
+
+    <EditText
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:id="@+id/set_pin_cap2_txt_input_ma_pin_2"
+        android:maxLength="4"
+        android:gravity="center"
+        android:background="@drawable/shape_edit_text_answer"
+        android:padding="10dp"
+        android:password="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/shape_layout_start_2"
+        android:paddingBottom="10dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:paddingTop="10dp"
+        android:id="@+id/set_pin_cap2_btn_submit"
+        android:layout_margin="5dp"
+        android:text="Submit"
+        android:textColor="@color/color_white" />
+</LinearLayout>

@@ -10,7 +10,6 @@ import com.lhd.view.fragment.SettingFragment;
 
 /**
  * Created by D on 7/7/2017.
- *
  */
 
 public class SettingPresenterImpl implements SettingPresenter, OnStateChangeListenner {
@@ -24,14 +23,16 @@ public class SettingPresenterImpl implements SettingPresenter, OnStateChangeList
 
     @Override
     public void setOnLockScreen() {
-        ((KeyguardManager) settingFragment.getActivity().getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock( settingFragment.getActivity().getPackageName()).disableKeyguard();
+        ((KeyguardManager) settingFragment.getActivity().getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(settingFragment.getActivity().getPackageName()).disableKeyguard();
         settingFragment.onLockScreen();
+        settingModel.setEnableLock(true, this);
     }
 
     @Override
     public void setOffLockScreen() {
-        ((KeyguardManager)  settingFragment.getActivity().getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(settingFragment.getActivity().getPackageName()).reenableKeyguard();
+        ((KeyguardManager) settingFragment.getActivity().getSystemService(Activity.KEYGUARD_SERVICE)).newKeyguardLock(settingFragment.getActivity().getPackageName()).reenableKeyguard();
         settingFragment.offLockScreen();
+        settingModel.setEnableLock(false, this);
     }
 
     @Override

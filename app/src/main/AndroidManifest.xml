@@ -2,13 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lhd.demolock">
 
-    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <permission android:name="android.permission.CALL_PRIVILEGED" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission
-        android:name="android.permission.DISABLE_KEYGUARD"
-        android:required="false" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -19,11 +16,11 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.lhd.activity.Main"></activity>
         <activity android:name="com.lhd.activity.Test"></activity>
+
         <service
             android:name="com.lhd.service.MyService"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
         <service android:name="com.lhd.service.ShowLock" />
-        <service android:name="com.lhd.service.FloatIcon" />
 
         <receiver android:name="com.lhd.broadcast.BroadcastScreenOnOff">
             <intent-filter>
@@ -31,15 +28,18 @@
                 <action android:name="android.intent.action.SCREEN_OFF" />
             </intent-filter>
         </receiver>
+        <receiver android:name="com.lhd.view.broadcast.BootBroadcast">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name="com.lhd.activity.Flag">
+
         </activity>
-        <activity
-            android:name="com.lhd.activity.ViewImageBackground"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name="com.lhd.activity.SecurityQuestion" />
         <activity android:name="com.lhd.view.activity.SelectTypeLock" />
-        <activity android:name="com.lhd.activity.SetImageBackground" />
+        <activity android:name="com.lhd.view.activity.SetImageBackground" />
         <activity android:name="com.lhd.view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,11 +55,12 @@
         <activity
             android:name="com.lhd.activity.Main2Activity"
             android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity android:name="com.lhd.view.activity.SetLockSmallActivity"></activity>
-        <activity android:name="com.lhd.view.activity.SetLockLargeActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="com.lhd.view.activity.SetLockSmallActivity" />
+        <activity android:name="com.lhd.view.activity.SetLockLargeActivity" />
+        <activity android:name="com.lhd.view.activity.ViewBackgroundFormStore" />
+        <activity android:name="com.lhd.view.activity.ViewBackgroundFromDrawable" />
+        <activity android:name="com.lhd.view.activity.ChangePinCode2"></activity>
     </application>
 
 </manifest>

@@ -12,7 +12,7 @@
     <string name="setting_text_1">Enable Lock</string>
     <string name="addPhoto">Setting LockScreen</string>
     <string name="set_wallpaper">Set Wallpaper</string>
-    <string name="setrect_question">Secret question</string>
+    <string name="setrect_question">Change pin preventive</string>
     <string name="sounds">Sounds</string>
     <string name="item_sounds">Sounds</string>
     <string name="vibiration">Vibiration</string>
@@ -28,5 +28,6 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name="txt_view_onlock"><![CDATA[> swipe to unlock]]></string>
+    <string name="txt_view_onlock"><![CDATA[> Swipe to unlock]]></string>
+    <string name="txt_forget_pass"><u>Mã dự phòng</u></string>
 </resources>

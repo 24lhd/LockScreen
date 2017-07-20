@@ -1,24 +1,31 @@
 package com.lhd.view.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 
-import com.lhd.view.activity.SelectTypeLock;
-import com.lhd.activity.SetImageBackground;
+import com.lhd.activity.Main;
 import com.lhd.demolock.R;
 import com.lhd.model.config.Config;
 import com.lhd.model.object.OnOff;
 import com.lhd.presenter.SettingPresenter;
 import com.lhd.presenter.SettingPresenterImpl;
 import com.lhd.view.SettingView;
+import com.lhd.view.activity.ChangePinCode2;
+import com.lhd.view.activity.SelectTypeLock;
+import com.lhd.view.activity.SetImageBackground;
 import com.lhd.view.service.LockScreen;
 import com.orhanobut.hawk.Hawk;
 
@@ -89,14 +96,118 @@ public class SettingFragment extends Fragment implements SettingView {
                 startSetWallpager();
             }
         });
-        viewContent.findViewById(R.id.chon_cau_hoi).setOnClickListener(new View.OnClickListener() {
+        viewContent.findViewById(R.id.thay_cau_hoi).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startSelectAnswer();
+//                changePinCode2();
+//                setPinCodeCap2();
+                checkPinDuPhong();
             }
         });
         loadStateView();
         return viewContent;
+    }
+
+    private void checkPinDuPhong() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View viewContent = View.inflate(getContext(), R.layout.check_pin_code, null);
+        builder.setView(viewContent);
+        Button btnSubmit = viewContent.findViewById(R.id.check_pin_code_btn_mo_khoa);
+        final EditText edtInput = viewContent.findViewById(R.id.check_pin_code_pin_input);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setView(viewContent);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input = edtInput.getText().toString();
+                String pass = Hawk.get(Config.PIN_CAP_2);
+
+                if (input.equals(pass)) {
+
+                } else {
+                    Toast.makeText(getContext(), "Sai mã pin", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void changePinCode2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View viewContent = View.inflate(getContext(), R.layout.change_pin_code, null);
+        builder.setView(viewContent);
+        Button btnSubmit = viewContent.findViewById(R.id.change_pin_code_btn_change);
+        final EditText edtInput1 = viewContent.findViewById(R.id.change_pin_code_pin_1);
+        final EditText edtInput2 = viewContent.findViewById(R.id.change_pin_code_pin_2);
+        final EditText edtInputCu = viewContent.findViewById(R.id.change_pin_code_pin_cu);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setView(viewContent);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input1 = edtInput1.getText().toString();
+                String input2 = edtInput2.getText().toString();
+                String inputCu = edtInputCu.getText().toString();
+                if (input1.length() < 4)
+                    Toast.makeText(getContext(), "Bạn hãy nhập đầy đủ 4 kí tự", Toast.LENGTH_SHORT).show();
+                else if (!input1.equals(input2)) {
+                    Toast.makeText(getContext(), "Mã pin nhập không giống nhau", Toast.LENGTH_SHORT).show();
+                } else if (!inputCu.equals((String) Hawk.get(Config.PIN_CAP_2))) {
+                    Toast.makeText(getContext(), "Mã pin cũ của bạn không đúng", Toast.LENGTH_SHORT).show();
+                } else {
+                    Hawk.put(Config.PIN_CAP_2, input1);
+                    Toast.makeText(getContext(), "Đã thay đổi mã pin dự phòng", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                Toast.makeText(getContext(), "alertDialog onDismiss", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void setPinCodeCap2() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        View viewContent = View.inflate(getContext(), R.layout.set_pin_cap_2, null);
+        builder.setView(viewContent);
+        Button btnSubmit = viewContent.findViewById(R.id.set_pin_cap2_btn_submit);
+        final EditText edtInput1 = viewContent.findViewById(R.id.set_pin_cap2_txt_input_ma_pin_1);
+        final EditText edtInput2 = viewContent.findViewById(R.id.set_pin_cap2_txt_input_ma_pin_2);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setView(viewContent);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input1 = edtInput1.getText().toString();
+                String input2 = edtInput2.getText().toString();
+                if (input1.length() < 4)
+                    Toast.makeText(getContext(), "Bạn hãy nhập đầy đủ 4 kí tự", Toast.LENGTH_SHORT).show();
+                else if (!input1.equals(input2)) {
+                    Toast.makeText(getContext(), "Mã pin nhập không giống nhau", Toast.LENGTH_SHORT).show();
+                } else {
+                    Hawk.put(Config.PIN_CAP_2, input1);
+                    Toast.makeText(getContext(), "Đã tạo mật khẩu cấp 2", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                Toast.makeText(getContext(), "alertDialog onDismiss", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void startChangePinCode2() {
+        Intent intent = new Intent(getActivity(), ChangePinCode2.class);
+        getActivity().startActivity(intent);
     }
 
     @Override
@@ -170,6 +281,7 @@ public class SettingFragment extends Fragment implements SettingView {
 
         try {
             swEnableLock.setChecked(((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue());
+            Main.showLog("hehe " + ((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue());
         } catch (NullPointerException e) {
             Hawk.put(Config.ENABLE_LOCK, new OnOff(false));
         }

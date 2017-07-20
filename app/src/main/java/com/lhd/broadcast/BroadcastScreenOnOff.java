@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.lhd.activity.Main;
-import com.lhd.service.FloatIcon;
 
 import static android.content.Context.KEYGUARD_SERVICE;
 
@@ -20,7 +19,7 @@ public class BroadcastScreenOnOff extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        intentListenOnOff = new Intent(context, FloatIcon.class);
+//        intentListenOnOff = new Intent(context, FloatIcon.class);
         if (intent.getAction().equals(Intent.ACTION_SCREEN_ON)) {
             Main.showLog("ACTION_SCREEN_ON");
             intentListenOnOff.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -32,7 +31,6 @@ public class BroadcastScreenOnOff extends BroadcastReceiver {
             intentListenOnOff.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             intentListenOnOff.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
           //  context.stopService(intentListenOnOff);
-
         }
     }
 

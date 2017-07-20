@@ -9,10 +9,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.PixelFormat;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.v4.widget.SlidingPaneLayout;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -21,12 +21,13 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
-import com.lhd.fragment.Setting;
 import com.lhd.model.config.Config;
 import com.lhd.model.object.BackgroundImageLockScreen;
 import com.lhd.model.object.LockType;
@@ -117,33 +118,41 @@ public class LockScreen extends Service implements View.OnClickListener {
         registerReceiver(mReceiver, filter);
     }
 
+    SlidingPaneLayout slidingPaneLayout;
+
     private void setTypeNone() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        layout = inflater.inflate(R.layout.lock_screen, null);
-        btUnLock = (Button) layout.findViewById(R.id.btn_unlock_screen);
-        imgBackground = layout.findViewById(R.id.im_bg_lockscreen);
-        tvDate = layout.findViewById(R.id.txt_date_lockscreen);
-        tvTime = layout.findViewById(R.id.txt_time_lockscreen);
-        btUnLock.setOnClickListener(new View.OnClickListener() {
+        layout = inflater.inflate(R.layout.ls_none, null);
+        slidingPaneLayout = (SlidingPaneLayout) layout.findViewById(R.id.SlidingPanel_ls_none);
+        slidingPaneLayout.setPanelSlideListener(new SlidingPaneLayout.PanelSlideListener() {
             @Override
-            public void onClick(View view) {
-                Main.showLog("removeViewImmediate");
-                unLock();
+            public void onPanelSlide(View panel, float slideOffset) {
+                if (slidingPaneLayout.isOpen()) unLock();
+            }
+
+            @Override
+            public void onPanelOpened(View panel) {
+
+            }
+
+            @Override
+            public void onPanelClosed(View panel) {
+
             }
         });
-        Main.showLog("ShowLock");
+        imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_none);
+        tvDate = layout.findViewById(R.id.txt_date_ls_none);
+        tvTime = layout.findViewById(R.id.txt_time_ls_none);
         loadBackground(imgBackground);
-
-        tvDate.setText(Setting.date());
+        tvDate.setText(date());
         try {
-            if (((OnOff) Hawk.get(Main.IS_24H)).isTrue())
-                tvTime.setText(Setting.time24());
+            if (((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue())
+                tvTime.setText(time24());
             else
-                tvTime.setText(Setting.time12());
+                tvTime.setText(time12());
         } catch (NullPointerException e) {
-            tvTime.setText(Setting.time24());
+            tvTime.setText(time24());
         }
-//
     }
 
     private void unLock() {
@@ -154,7 +163,7 @@ public class LockScreen extends Service implements View.OnClickListener {
 
     public void loadBackground(ImageView imgBackground) {
         try {
-            BackgroundImageLockScreen.loadImage(LockScreen.this, ((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getPickImage(), imgBackground);
+            BackgroundImageLockScreen.loadImage(LockScreen.this, ((BackgroundImageLockScreen) Hawk.get(Config.IMAGE_BACKGROUND)).getPickImage(), imgBackground);
         } catch (NullPointerException e) {
             loadImage(LockScreen.this, "" + R.drawable.bg2, imgBackground);
         } catch (ClassCastException e) {
@@ -270,11 +279,7 @@ public class LockScreen extends Service implements View.OnClickListener {
             @Override
             public void onClick(View view) {
                 if (((OnOff) Hawk.get(Config.VIBRATION)).isTrue()) playVibiration(LockScreen.this);
-                String number = "7777777777";
-                Uri call = Uri.parse("tel:" + number);
-                Intent surf = new Intent(Intent.ACTION_CALL, call);
-                surf.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-                startActivity(surf);
+
             }
         });
         Button button01 = layout.findViewById(R.id.btn_ma_pin_sc_01);
@@ -347,7 +352,7 @@ public class LockScreen extends Service implements View.OnClickListener {
                 try {
                     if (!isShowing && ((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue()) {
                         try {
-                            if (Config.MAU_HINH_SMALL.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
+                          if (Config.MAU_HINH_SMALL.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
                                 setTypePatternSmall();
                             else if (Config.MAU_HINH_TO.contains(((LockType) Hawk.get(Config.TYPE_LOCK)).getName()))
                                 setTypePatternTo();
@@ -358,6 +363,9 @@ public class LockScreen extends Service implements View.OnClickListener {
                             Main.showLog(e.getMessage());
                             setTypeNone();
                         }
+                        try{
+                            windowManager.removeViewImmediate(layout);
+                        }catch (Exception e){}
                         windowManager.addView(layout, params);
                         isShowing = true;
                     }
@@ -381,6 +389,13 @@ public class LockScreen extends Service implements View.OnClickListener {
             layout = inflater.inflate(R.layout.ls_pattern_small_vibrate_layout, null);
             Lock9View lock9View;
             TextView textTime = layout.findViewById(R.id.txt_time_ls_pattern_small_vibrate_layout);
+            TextView txtPin2 = layout.findViewById(R.id.lock_9_view_ls_pattern_small_vibrate_txt_pin_2);
+            txtPin2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPin2();
+                }
+            });
             if (((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue())
                 textTime.setText(time24());
             else textTime.setText(time12());
@@ -432,6 +447,33 @@ public class LockScreen extends Service implements View.OnClickListener {
                                   }
             );
         }
+    }
+
+    private void showPin2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Theme_AppCompat_DayNight_Dialog_Alert);
+
+        View viewContent = View.inflate(this, R.layout.check_pin_code, null);
+        builder.setView(viewContent);
+        Button btnSubmit = viewContent.findViewById(R.id.check_pin_code_btn_mo_khoa);
+        final EditText edtInput = viewContent.findViewById(R.id.check_pin_code_pin_input);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.getWindow().setType( WindowManager.LayoutParams.TYPE_TOAST);
+        alertDialog.setView(viewContent);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input = edtInput.getText().toString();
+                String pass = Hawk.get(Config.PIN_CAP_2);
+                if (input.equals(pass)) {
+                    unLock();
+                } else {
+                    Toast.makeText(LockScreen.this, "Sai mã pin", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+        alertDialog.show();
+        Toast.makeText(LockScreen.this, "Show", Toast.LENGTH_SHORT).show();
     }
 
 

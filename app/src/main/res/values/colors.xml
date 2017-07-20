@@ -12,4 +12,5 @@
     <color name="color_view">#cdc8c8</color>
     <color name="color_none">#00ffffff</color>
     <color name="blue_light">#ff33b5e5</color>
+    <color name="color_white_al">#d2f8f9fa</color>
 </resources>

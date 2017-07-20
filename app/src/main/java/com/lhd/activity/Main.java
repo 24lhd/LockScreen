@@ -14,10 +14,8 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.lhd.demolock.R;
-import com.lhd.fragment.Setting;
 import com.lhd.fragment.Start;
 import com.lhd.model.object.OnOff;
-import com.lhd.service.FloatIcon;
 import com.orhanobut.hawk.Hawk;
 
 import java.io.FileNotFoundException;
@@ -28,12 +26,6 @@ import static com.lhd.fragment.SelectImage.RESULT_LOAD_IMG;
 public class Main extends AppCompatActivity {
     public static final java.lang.String IS_START = "is_start";
     public static final java.lang.String IS_START_DIALOG_SETTING = "is_start_dialog_setting";
-    public static final String IS_ENABLE_LOCK = "IS_ENABLE_LOCK";
-    public static final String IS_SOUND = "IS_SOUND";
-    public static final String IS_RUNG = "IS_RUNG";
-    public static final String IS_24H = "IS_24H";
-    public static final String IMAGE_BACKGROUND = "IMAGE_BACKGROUND";
-    public static final String INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN = "INDEX_SELECT_IMAGE_BACKGROUND_LOCK_SCREEN";
     public static final String QUYEN_VE_LEN_TREN = "QUYEN_VE_LEN_TREN";
     private WindowManager windowManager;
     public static void showLog(String logContent) {
@@ -54,8 +46,8 @@ public class Main extends AppCompatActivity {
         } catch (NullPointerException e) {
             setFragmentStart();
         }
-        Intent intent = new Intent(this, FloatIcon.class);
-        startService(intent);
+//        Intent intent = new Intent(this, FloatIcon.class);
+//        startService(intent);
         try {
             boolean b = ((OnOff) Hawk.get(QUYEN_VE_LEN_TREN)).isTrue();
         } catch (NullPointerException e) {
@@ -65,7 +57,7 @@ public class Main extends AppCompatActivity {
     }
 
     private void setFragmentSetting() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Setting()).commit();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.layout_container, new Setting()).commit();
     }
 
     public void checkPermisstion() {
@@ -151,7 +143,7 @@ public class Main extends AppCompatActivity {
                 Uri imageUri = data.getData();
                 InputStream imageStream = getContentResolver().openInputStream(imageUri);
 //                Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                Hawk.put(Main.IMAGE_BACKGROUND, imageUri);
+//                Hawk.put(Main.IMAGE_BACKGROUND, imageUri);
                 Main.showLog("RESULT_LOAD_IMG");
             } catch (FileNotFoundException e) {
                 Main.showLog("FileNotFoundException");

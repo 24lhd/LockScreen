@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:id="@+id/im_bg_set_pin"
         android:scaleType="centerCrop"
+        android:background="@color/blue_light"
         android:layout_height="match_parent" />
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:id="@+id/txt_noti_input_pin_lock"
+                android:id="@+id/txt_noti_input_pin_set_pin_layout"
                 android:text="Enter Passcode"
                 android:textColor="@color/white" />
 
@@ -34,7 +35,7 @@
                 android:editable="false"
                 android:maxLength="4"
                 android:gravity="center"
-                android:id="@+id/tv_pin_input"
+                android:id="@+id/tv_pin_input_txt_noti_input_pin_set_pin_layout"
                 android:inputType="numberPassword"
                 android:password="true"
                 android:text="1234"

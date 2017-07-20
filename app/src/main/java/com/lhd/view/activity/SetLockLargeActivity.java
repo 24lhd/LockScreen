@@ -1,10 +1,16 @@
 package com.lhd.view.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
@@ -23,9 +29,11 @@ public class SetLockLargeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.set_lock_type_large);
-        setViewLockNormal();
         Hawk.init(this).build();
+        setViewLockNormal();
+
     }
+
     TextView tvNoti;
     ImageView imLeft;
     ImageView imRight;
@@ -33,16 +41,50 @@ public class SetLockLargeActivity extends AppCompatActivity {
     Lock9View lock9View;
     String password1 = "";
     String password2 = "";
-
+    private void setPinCodeCap2(final Context context) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        View viewContent = View.inflate(context, R.layout.set_pin_cap_2, null);
+        builder.setView(viewContent);
+        Button btnSubmit = viewContent.findViewById(R.id.set_pin_cap2_btn_submit);
+        final EditText edtInput1 = viewContent.findViewById(R.id.set_pin_cap2_txt_input_ma_pin_1);
+        final EditText edtInput2 = viewContent.findViewById(R.id.set_pin_cap2_txt_input_ma_pin_2);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.setView(viewContent);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String input1 = edtInput1.getText().toString();
+                String input2 = edtInput2.getText().toString();
+                if (input1.length() < 4)
+                    Toast.makeText(context, "Bạn hãy nhập đầy đủ 4 kí tự", Toast.LENGTH_SHORT).show();
+                else if (!input1.equals(input2)) {
+                    Toast.makeText(context, "Mã pin nhập không giống nhau", Toast.LENGTH_SHORT).show();
+                } else {
+                    Hawk.put(Config.PIN_CAP_2, input1);
+                    Hawk.put(Config.TYPE_LOCK, new LockType(Config.MAU_HINH_TO, password1));
+                    Toast.makeText(context, "Đã tạo mật khẩu cấp 2", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                    finish();
+                }
+            }
+        });
+        alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                Toast.makeText(context, "alertDialog onDismiss", Toast.LENGTH_SHORT).show();
+            }
+        });
+        alertDialog.show();
+    }
     private void setViewLockNormal() {
-        lock9View = (Lock9View) findViewById(R.id.lock_9_view);
-        tvNoti = (TextView) findViewById(R.id.txt_type_noti_set_lock_nomal);
+        lock9View = (Lock9View) findViewById(R.id.lock_9_view_set_lock_type_large);
+        tvNoti = (TextView) findViewById(R.id.txt_type_noti_set_lock_type_large);
         tvNoti.setText("Vẽ mẫu hình của bạn");
-        imLeft = (ImageView) findViewById(R.id.im_next_img_left_lock_normal);
-        imRight = (ImageView) findViewById(R.id.im_next_img_right_lock_normal);
-        imbg = (ImageView) findViewById(R.id.bg_im_lock_nomal);
+        imLeft = (ImageView) findViewById(R.id.im_next_img_left_set_lock_type_large);
+        imRight = (ImageView) findViewById(R.id.im_next_img_right_set_lock_type_large);
+        imbg = (ImageView) findViewById(R.id.bg_im_lock_set_lock_type_large);
         try {
-            BackgroundImageLockScreen.loadImage(this, ((BackgroundImageLockScreen) Hawk.get(Main.IMAGE_BACKGROUND)).getPickImage(), imbg);
+            BackgroundImageLockScreen.loadImage(this, ((BackgroundImageLockScreen) Hawk.get(Config.IMAGE_BACKGROUND)).getPickImage(), imbg);
         } catch (NullPointerException e) {
             BackgroundImageLockScreen.loadImage(this, "" + R.drawable.bg2, imbg);
         } catch (ClassCastException e) {
@@ -60,8 +102,7 @@ public class SetLockLargeActivity extends AppCompatActivity {
                                       Main.showLog("password2 " + password2);
                                       if (password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
                                           tvNoti.setText("Đã lưu mấu hình của bạn");
-                                          Hawk.put(Config.TYPE_LOCK,new LockType(Config.MAU_HINH_TO,password1));
-                                          finish();
+                                      setPinCodeCap2(SetLockLargeActivity.this);
                                       } else if (!password2.equals(password1) && !password1.equals("") && !password2.equals("")) {
                                           tvNoti.setText("Không khớp, Tạo lại mẫu hình của bạn");
                                           password2 = "";
@@ -88,11 +129,13 @@ public class SetLockLargeActivity extends AppCompatActivity {
         });
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left);
     }
+
 }
 
 
