@@ -1,9 +1,21 @@
 package com.lhd.model.config;
 
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.Contacts;
+import android.util.Log;
+
+import com.lhd.activity.Main;
 import com.lhd.demolock.R;
 import com.lhd.model.object.BackgroundImageLockScreen;
+import com.lhd.model.object.FlagListNoti;
+import com.lhd.model.object.ItemNotification;
+import com.orhanobut.hawk.Hawk;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by D on 7/5/2017.
@@ -28,13 +40,52 @@ public class Config {
     public static final int SELECTED_IMAGE_BACKGROUND = 1021;
     public static final int SELECTED_IMAGE_STORE_BACKGROUND = 1012;
     public static final String PIN_CAP_2 = "PIN_CAP_2";
+    public static final java.lang.String LIST_NOTI = "LIST_NOTI";
     private static ArrayList<BackgroundImageLockScreen> backgroundImageLockScreens;
+    private static Object allNoti;
+    Context context;
+
+    public Config(Context context) {
+        this.context = context;
+        Hawk.init(context).build();
+    }
+
+    public static String getContactName(Context context, String phoneNumber) {
+        Uri uri;
+        String[] projection;
+        Uri mBaseUri = Contacts.Phones.CONTENT_FILTER_URL;
+        projection = new String[]{android.provider.Contacts.People.NAME};
+        try {
+            Class<?> c = Class.forName("android.provider.ContactsContract$PhoneLookup");
+            mBaseUri = (Uri) c.getField("CONTENT_FILTER_URI").get(mBaseUri);
+            projection = new String[]{"display_name"};
+        } catch (Exception e) {
+            Log.e("Config", "lỗi ");
+            e.printStackTrace();
+        }
+        uri = Uri.withAppendedPath(mBaseUri, Uri.encode(phoneNumber));
+        Cursor cursor = context.getContentResolver().query(uri, projection, null, null, null);
+        String contactName = "";
+        if (cursor.moveToFirst()) {
+            contactName = cursor.getString(0);
+        }
+        cursor.close();
+        return contactName + " [ " + phoneNumber + " ]";
+    }
+
+    public static String time24(Date date) {
+        date.setHours(date.getHours());
+        SimpleDateFormat simpDate;
+        simpDate = new SimpleDateFormat("HH:mm");
+        Main.showLog(simpDate.format(date));
+        return simpDate.format(date);
+    }
 
     public static ArrayList<BackgroundImageLockScreen> getBackgroundImageLockScreens() {
         backgroundImageLockScreens = new ArrayList<>();
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.bg2));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.bg1));
-        backgroundImageLockScreens.add(new BackgroundImageLockScreen(""+R.drawable.bg2));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen("" + R.drawable.bg2));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen("" + R.drawable.bg1));
+        backgroundImageLockScreens.add(new BackgroundImageLockScreen("" + R.drawable.bg2));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a4));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a6));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a8));
@@ -77,5 +128,32 @@ public class Config {
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a48));
 //        backgroundImageLockScreens.add(new BackgroundImageLockScreen(R.drawable.a49));
         return backgroundImageLockScreens;
+    }
+
+    public ArrayList<ItemNotification> getAllNoti(Context context) {
+
+        FlagListNoti flagListNoti;
+        try {
+            flagListNoti = (FlagListNoti) Hawk.get(Config.LIST_NOTI);
+        } catch (NullPointerException e) {
+            flagListNoti = new FlagListNoti(new ArrayList<ItemNotification>());
+            Hawk.put(Config.LIST_NOTI, flagListNoti);
+        }
+        if (flagListNoti.getItemNotifications() == null) {
+            flagListNoti = new FlagListNoti(new ArrayList<ItemNotification>());
+            Hawk.put(Config.LIST_NOTI, flagListNoti);
+            return flagListNoti.getItemNotifications();
+        }
+        return flagListNoti.getItemNotifications();
+    }
+
+    public void removeNoti(Context context) {
+        getAllNoti(context).clear();
+    }
+
+    public void putNoti(ItemNotification itemNotification, Context context) {
+        ArrayList<ItemNotification> itemNotifications = getAllNoti(context);
+        itemNotifications.add(itemNotification);
+        Hawk.put(Config.LIST_NOTI, itemNotifications);
     }
 }

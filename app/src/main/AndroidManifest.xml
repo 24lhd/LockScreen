@@ -6,6 +6,11 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
+
 
     <application
         android:allowBackup="true"
@@ -16,7 +21,20 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.lhd.activity.Main"></activity>
         <activity android:name="com.lhd.activity.Test"></activity>
-
+        <!--This part is inside the application-->
+        <receiver android:name="com.lhd.broadcast.CallRecerver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.NEW_OUTGOING_CALL" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.lhd.broadcast.SMSRecerver">
+            <intent-filter>
+                <category android:name="android.provider.Telephony.SMS_RECEIVED"></category>
+            </intent-filter>
+        </receiver>
         <service
             android:name="com.lhd.service.MyService"
             android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen" />
@@ -35,16 +53,16 @@
         </receiver>
 
         <activity android:name="com.lhd.activity.Flag">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.lhd.activity.SecurityQuestion" />
         <activity android:name="com.lhd.view.activity.SelectTypeLock" />
         <activity android:name="com.lhd.view.activity.SetImageBackground" />
         <activity android:name="com.lhd.view.activity.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
         <service android:name="com.lhd.view.service.LockScreen" />

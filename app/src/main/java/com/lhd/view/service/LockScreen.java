@@ -202,6 +202,13 @@ public class LockScreen extends Service implements View.OnClickListener {
                                       }
                                   }
             );
+            TextView txtPin2 = layout.findViewById(R.id.im_bg_none_ls_pattern_large_vibrate_ma_pin_2);
+            txtPin2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPin2();
+                }
+            });
         } else {
             layout = inflater.inflate(R.layout.ls_pattern_large_no_vibrate_layout, null);
             Lock9View lock9View;
@@ -218,6 +225,13 @@ public class LockScreen extends Service implements View.OnClickListener {
                 @Override
                 public void onClick(View view) {
 
+                }
+            });
+            TextView txtPin2 = layout.findViewById(R.id.lock_9_view_ls_pattern_large_no_vibrate_ma_pin_2);
+            txtPin2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPin2();
                 }
             });
             loadBackground(imgBackground);
@@ -257,6 +271,13 @@ public class LockScreen extends Service implements View.OnClickListener {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+        TextView txtPin2 = layout.findViewById(R.id.im_bg_lockscreen_none_ma_pin_2);
+        txtPin2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPin2();
             }
         });
         loadBackground(imbg);
@@ -428,6 +449,13 @@ public class LockScreen extends Service implements View.OnClickListener {
             else textTime.setText(time12());
             TextView textDate = layout.findViewById(R.id.txt_date_ls_pattern_small_no_vibrate_layout);
             textDate.setText(date());
+            TextView txtPin2 = layout.findViewById(R.id.lock_9_view_ls_pattern_small_no_vibrate_ma_pin_2);
+            txtPin2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showPin2();
+                }
+            });
             lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_small_no_vibrate_layout);
             imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_small_no_vibrate_layout);
             ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_small_no_vibrate_layout);
@@ -450,8 +478,7 @@ public class LockScreen extends Service implements View.OnClickListener {
     }
 
     private void showPin2() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.Theme_AppCompat_DayNight_Dialog_Alert);
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert);
         View viewContent = View.inflate(this, R.layout.check_pin_code, null);
         builder.setView(viewContent);
         Button btnSubmit = viewContent.findViewById(R.id.check_pin_code_btn_mo_khoa);
@@ -465,10 +492,10 @@ public class LockScreen extends Service implements View.OnClickListener {
                 String input = edtInput.getText().toString();
                 String pass = Hawk.get(Config.PIN_CAP_2);
                 if (input.equals(pass)) {
+                    alertDialog.dismiss();
                     unLock();
                 } else {
                     Toast.makeText(LockScreen.this, "Sai mã pin", Toast.LENGTH_SHORT).show();
-                    alertDialog.dismiss();
                 }
             }
         });

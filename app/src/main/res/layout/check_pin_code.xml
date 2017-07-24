@@ -4,41 +4,23 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="10dp">
-
     <TextView
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nhập mã pin dự phòng để mở khóa" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/TextAppearance.AppCompat.Body2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="@dimen/dialog_enable_lockscreen_2"
-            android:paddingTop="@dimen/dialog_enable_lockscreen_2"
-            android:text="Mã pin mới" />
-    </LinearLayout>
-
     <EditText
         android:id="@+id/check_pin_code_pin_input"
-        style="@style/TextAppearance.AppCompat.Body1"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_edit_text_answer"
         android:gravity="center"
         android:inputType="number"
         android:maxLength="4"
+        android:textColor="@color/colorPrimary"
         android:padding="10dp"
         android:password="true" />
-
     <Button
         android:id="@+id/check_pin_code_btn_mo_khoa"
         android:layout_width="wrap_content"

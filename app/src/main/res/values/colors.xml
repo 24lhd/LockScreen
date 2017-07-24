@@ -13,4 +13,7 @@
     <color name="color_none">#00ffffff</color>
     <color name="blue_light">#ff33b5e5</color>
     <color name="color_white_al">#d2f8f9fa</color>
+    <color name="background_shape_noti_ios">#b7bdd3de</color>
+    <color name="background_shape_noti_ios_title">#b9e3e4df</color>
+    <color name="color_text_title_noti_ios">#6a6d64</color>
 </resources>

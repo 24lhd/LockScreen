@@ -43,6 +43,7 @@
                 android:layout_centerInParent="true"
                 android:background="@color/color_none"
                 android:gravity="center"
+                android:id="@+id/lock_9_view_ls_pattern_large_no_vibrate_ma_pin_2"
                 android:text="@string/txt_forget_pass"
                 android:textColor="@color/color_white" />
         </RelativeLayout>

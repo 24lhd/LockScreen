@@ -227,6 +227,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/color_none"
                         android:layout_margin="5dp"
+                        android:id="@+id/im_bg_lockscreen_none_ma_pin_2"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="@string/txt_forget_pass"
