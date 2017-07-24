@@ -90,6 +90,16 @@ public class SettingPresenterImpl implements SettingPresenter, OnStateChangeList
         settingFragment.loadStateView();
     }
 
+    @Override
+    public void setOnNoti() {
+        settingModel.setNoti(true,this);
+    }
+
+    @Override
+    public void setOffNoti() {
+        settingModel.setNoti(false,this);
+    }
+
 
     @Override
     public void onChange(String tag, boolean b) {

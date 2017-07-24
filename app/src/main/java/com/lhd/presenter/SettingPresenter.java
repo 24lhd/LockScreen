@@ -18,5 +18,7 @@ public interface SettingPresenter {
     public void setNotifi();
     public void setAds();
     public void setLoadStateView();
+    public void setOnNoti();
+    public void setOffNoti();
 
 }

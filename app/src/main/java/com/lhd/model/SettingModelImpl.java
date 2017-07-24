@@ -40,6 +40,12 @@ public class SettingModelImpl implements SettingModel {
         listenner.onChange(Config.SOUND,b);
     }
 
+    @Override
+    public void setNoti(boolean b, OnStateChangeListenner listenner) {
+        Hawk.put(Config.SHOW_NOTI, new OnOff(b));
+        listenner.onChange(Config.SOUND,b);
+    }
+
 //    @Override
 //    public boolean getEnableLock() {
 //        try {

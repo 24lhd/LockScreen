@@ -30,4 +30,6 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="txt_view_onlock"><![CDATA[> Swipe to unlock]]></string>
     <string name="txt_forget_pass"><u>Mã dự phòng</u></string>
+    <string name="lb_txt_noti">Thông báo</string>
+    <string name="lb_text_noti">Thông báo</string>
 </resources>

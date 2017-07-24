@@ -13,6 +13,8 @@ import android.os.IBinder;
 import android.os.Vibrator;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,11 +25,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
+import com.lhd.model.adaptor.AdaptorNotiIos;
 import com.lhd.model.config.Config;
 import com.lhd.model.object.BackgroundImageLockScreen;
 import com.lhd.model.object.LockType;
@@ -40,6 +44,8 @@ import java.util.Date;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 import static android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
+import static com.lhd.model.config.Config.getAllNoti;
+import static com.lhd.model.config.Config.removeNoti;
 import static com.lhd.model.object.BackgroundImageLockScreen.loadImage;
 
 /**
@@ -140,6 +146,11 @@ public class LockScreen extends Service implements View.OnClickListener {
 
             }
         });
+        showRcvNoti(
+                (LinearLayout) layout.findViewById(R.id.frame_lb_noti_none),
+                (RecyclerView)  layout.findViewById(R.id.rcv_noti_ios_none),
+                (ImageView) layout.findViewById(R.id.imv_clear_all_noti_none)
+        );
         imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_none);
         tvDate = layout.findViewById(R.id.txt_date_ls_none);
         tvTime = layout.findViewById(R.id.txt_time_ls_none);
@@ -186,13 +197,21 @@ public class LockScreen extends Service implements View.OnClickListener {
             lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_large_vibrate_layout);
             imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_large_vibrate_layout);
             ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_large_vibrate_layout);
-            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
 
-                }
-            });
+            if (!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue()){
+                imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
             loadBackground(imgBackground);
+            showRcvNoti(
+                    (LinearLayout) layout.findViewById(R.id.frame_lb_noti_large_vibrate),
+                    (RecyclerView)  layout.findViewById(R.id.rcv_noti_ios_large_vibrate),
+                    (ImageView) layout.findViewById(R.id.imv_clear_all_noti_large_vibrate)
+            );
 //        textView.setText("Vẽ mấu hình mở khóa của bạn");
             lock9View.setCallBack(new Lock9View.CallBack() {
                                       public void onFinish(String password) {
@@ -221,12 +240,20 @@ public class LockScreen extends Service implements View.OnClickListener {
             lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_large_no_vibrate_layout);
             imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_large_no_vibrate_layout);
             ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_large_no_vibrate_layout);
-            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            if (!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue()){
+                imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                }
-            });
+                    }
+                });
+            }
+
+            showRcvNoti(
+                    (LinearLayout) layout.findViewById(R.id.frame_lb_noti_large_no_vibrate),
+                    (RecyclerView)  layout.findViewById(R.id.rcv_noti_ios_large_no_vibrate),
+                    (ImageView) layout.findViewById(R.id.imv_clear_all_noti_large_no_vibrate)
+            );
             TextView txtPin2 = layout.findViewById(R.id.lock_9_view_ls_pattern_large_no_vibrate_ma_pin_2);
             txtPin2.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -267,12 +294,14 @@ public class LockScreen extends Service implements View.OnClickListener {
         layout = inflater.inflate(R.layout.ls_ma_pin_to, null);
         ImageView imbg = layout.findViewById(R.id.im_bg_lockscreen_ls_ma_pin_to);
         ImageView imbgNone = layout.findViewById(R.id.im_bg_lockscreen_none_ls_ma_pin_to);
-        imbgNone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue()){
+            imbgNone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-            }
-        });
+                }
+            });
+        }
         TextView txtPin2 = layout.findViewById(R.id.im_bg_lockscreen_none_ma_pin_2);
         txtPin2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,6 +324,11 @@ public class LockScreen extends Service implements View.OnClickListener {
                 }
             }
         });
+        showRcvNoti(
+                (LinearLayout) layout.findViewById(R.id.frame_lb_noti_ma_pin_to),
+                (RecyclerView)  layout.findViewById(R.id.rcv_noti_ios_ma_pin_to),
+                (ImageView) layout.findViewById(R.id.imv_clear_all_noti_ma_pin_to)
+        );
         ImageView txtKhanCap = (ImageView) layout.findViewById(R.id.tv_khan_cap_sc_ls_ma_pin_to);
         txtKhanCap.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,6 +357,7 @@ public class LockScreen extends Service implements View.OnClickListener {
         button09.setOnClickListener(this);
         Button button00 = layout.findViewById(R.id.btn_ma_pin_sc_00);
         button00.setOnClickListener(this);
+
     }
 
     @Override
@@ -381,12 +416,14 @@ public class LockScreen extends Service implements View.OnClickListener {
                                 setTypeMaPin();
                             else setTypeNone();
                         } catch (NullPointerException e) {
+                            e.printStackTrace();
                             Main.showLog(e.getMessage());
                             setTypeNone();
                         }
                         try{
                             windowManager.removeViewImmediate(layout);
                         }catch (Exception e){}
+
                         windowManager.addView(layout, params);
                         isShowing = true;
                     }
@@ -411,6 +448,11 @@ public class LockScreen extends Service implements View.OnClickListener {
             Lock9View lock9View;
             TextView textTime = layout.findViewById(R.id.txt_time_ls_pattern_small_vibrate_layout);
             TextView txtPin2 = layout.findViewById(R.id.lock_9_view_ls_pattern_small_vibrate_txt_pin_2);
+            showRcvNoti(
+                    (LinearLayout) layout.findViewById(R.id.frame_lb_noti_small_vibrate),
+                    (RecyclerView)  layout.findViewById(R.id.rcv_noti_ios_small_vibrate),
+                    (ImageView) layout.findViewById(R.id.imv_clear_all_noti_small_vibrate)
+            );
             txtPin2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -425,12 +467,14 @@ public class LockScreen extends Service implements View.OnClickListener {
             lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_small_vibrate_layout);
             imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_small_vibrate_layout);
             ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_small_vibrate_layout);
-            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            if (!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue()){
+                imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                }
-            });
+                    }
+                });
+            }
             loadBackground(imgBackground);
 //        textView.setText("Vẽ mấu hình mở khóa của bạn");
             lock9View.setCallBack(new Lock9View.CallBack() {
@@ -443,10 +487,16 @@ public class LockScreen extends Service implements View.OnClickListener {
         } else {
             layout = inflater.inflate(R.layout.ls_pattern_small_no_vibrate_layout, null);
             Lock9View lock9View;
+
             TextView textTime = layout.findViewById(R.id.txt_time_ls_pattern_small_no_vibrate_layout);
             if (((OnOff) Hawk.get(Config.FOMAT_TIME)).isTrue())
                 textTime.setText(time24());
             else textTime.setText(time12());
+            showRcvNoti(
+                    (LinearLayout) layout.findViewById(R.id.frame_lb_noti_small_no_vibrate),
+                    (RecyclerView)  layout.findViewById(R.id.rcv_noti_ios_small_no_vibrate),
+                    (ImageView) layout.findViewById(R.id.imv_clear_all_noti_small_no_vibrate)
+            );
             TextView textDate = layout.findViewById(R.id.txt_date_ls_pattern_small_no_vibrate_layout);
             textDate.setText(date());
             TextView txtPin2 = layout.findViewById(R.id.lock_9_view_ls_pattern_small_no_vibrate_ma_pin_2);
@@ -459,12 +509,15 @@ public class LockScreen extends Service implements View.OnClickListener {
             lock9View = (Lock9View) layout.findViewById(R.id.lock_9_view_ls_pattern_small_no_vibrate_layout);
             imgBackground = layout.findViewById(R.id.im_bg_lockscreen_ls_pattern_small_no_vibrate_layout);
             ImageView imgBackgroundNone = layout.findViewById(R.id.im_bg_none_ls_pattern_small_no_vibrate_layout);
-            imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            if (!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue()){
+                imgBackgroundNone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
-                }
-            });
+                    }
+                });
+            }
+
             loadBackground(imgBackground);
 //        textView.setText("Vẽ mấu hình mở khóa của bạn");
             lock9View.setCallBack(new Lock9View.CallBack() {
@@ -475,6 +528,27 @@ public class LockScreen extends Service implements View.OnClickListener {
                                   }
             );
         }
+    }
+
+    private void showRcvNoti(final LinearLayout lbLayout, final RecyclerView recyclerView, ImageView imvClear) {
+        if (!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue()){
+            lbLayout.setVisibility(View.GONE);
+            return;
+        }
+        TextView imvRefresh;
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        imvClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeNoti(LockScreen.this);
+                recyclerView.setAdapter(new AdaptorNotiIos(LockScreen.this, getAllNoti(LockScreen.this)));
+                if (getAllNoti(LockScreen.this).size()==0||(!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue())) lbLayout.setVisibility(View.GONE);
+                else lbLayout.setVisibility(View.VISIBLE);
+            }
+        });
+        recyclerView.setAdapter(new AdaptorNotiIos(this, getAllNoti(LockScreen.this)));
+        if (getAllNoti(this).size()==0||(!((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue())) lbLayout.setVisibility(View.GONE);
+        else lbLayout.setVisibility(View.VISIBLE);
     }
 
     private void showPin2() {
@@ -500,7 +574,6 @@ public class LockScreen extends Service implements View.OnClickListener {
             }
         });
         alertDialog.show();
-        Toast.makeText(LockScreen.this, "Show", Toast.LENGTH_SHORT).show();
     }
 
 

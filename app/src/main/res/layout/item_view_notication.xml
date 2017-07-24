@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,18 +18,18 @@
             android:layout_height="wrap_content"
             android:background="@drawable/noti_on_lock_lick_ios__title_shape"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="3dp">
 
             <ImageView
+                android:id="@+id/noti_ios_imv_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:scaleType="center"
-                android:id="@+id/noti_ios_imv_icon"
                 android:src="@drawable/ic_add_a_photo_black_36dp" />
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Title"
+                style="@style/Base.TextAppearance.AppCompat.Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -38,7 +41,7 @@
                 android:textColor="@color/color_text_title_noti_ios" />
 
             <TextView
-                style="@style/Base.TextAppearance.AppCompat.Body2"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

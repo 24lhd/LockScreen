@@ -18,5 +18,8 @@ public interface SettingView {
     public void notificationConfig();
     public void showAds();
     public void loadStateView();
+    public void onNoti();
+    public void offNoti();
+
 
 }

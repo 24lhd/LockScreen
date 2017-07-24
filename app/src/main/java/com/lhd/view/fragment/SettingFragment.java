@@ -40,6 +40,7 @@ public class SettingFragment extends Fragment implements SettingView {
     Switch swEnableLock;
     Switch swRung;
     Switch swSound;
+    Switch swNoti;
     CheckBox cbTime;
 
     @Nullable
@@ -52,6 +53,15 @@ public class SettingFragment extends Fragment implements SettingView {
         swRung = viewContent.findViewById(R.id.sw_rung);
         swSound = viewContent.findViewById(R.id.sw_sound);
         cbTime = viewContent.findViewById(R.id.cbx_24h);
+        swNoti = viewContent.findViewById(R.id.sw_notity);
+        swNoti.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) settingPresenter.setOnNoti();
+                else
+                    settingPresenter.setOffNoti();
+            }
+        });
         swEnableLock.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -99,9 +109,9 @@ public class SettingFragment extends Fragment implements SettingView {
         viewContent.findViewById(R.id.thay_cau_hoi).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                changePinCode2();
+                changePinCode2();
 //                setPinCodeCap2();
-                checkPinDuPhong();
+//                checkPinDuPhong();
             }
         });
         loadStateView();
@@ -165,7 +175,6 @@ public class SettingFragment extends Fragment implements SettingView {
         alertDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                Toast.makeText(getContext(), "alertDialog onDismiss", Toast.LENGTH_SHORT).show();
             }
         });
         alertDialog.show();
@@ -268,7 +277,7 @@ public class SettingFragment extends Fragment implements SettingView {
 
     @Override
     public void notificationConfig() {
-
+        settingPresenter.setNotifi();
     }
 
     @Override
@@ -278,7 +287,6 @@ public class SettingFragment extends Fragment implements SettingView {
 
     @Override
     public void loadStateView() {
-
         try {
             swEnableLock.setChecked(((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue());
             Main.showLog("hehe " + ((OnOff) Hawk.get(Config.ENABLE_LOCK)).isTrue());
@@ -302,7 +310,23 @@ public class SettingFragment extends Fragment implements SettingView {
             Hawk.put(Config.FOMAT_TIME, new OnOff(false));
 
         }
+        try {
+            swNoti.setChecked(((OnOff) Hawk.get(Config.SHOW_NOTI)).isTrue());
+        } catch (NullPointerException e) {
+            Hawk.put(Config.SHOW_NOTI, new OnOff(false));
 
+        }
+
+
+    }
+
+    @Override
+    public void onNoti() {
+
+    }
+
+    @Override
+    public void offNoti() {
 
     }
 

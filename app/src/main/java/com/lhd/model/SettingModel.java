@@ -15,6 +15,8 @@ public interface SettingModel {
 
     public void setFomatTime(boolean b, OnStateChangeListenner listenner);
 
+    public void setNoti(boolean b, OnStateChangeListenner listenner);
+
 //    public boolean getEnableLock();
 //
 //    public boolean getSound();

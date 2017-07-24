@@ -6,10 +6,11 @@ import android.net.Uri;
 import android.provider.Contacts;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.lhd.activity.Main;
 import com.lhd.demolock.R;
 import com.lhd.model.object.BackgroundImageLockScreen;
-import com.lhd.model.object.FlagListNoti;
 import com.lhd.model.object.ItemNotification;
 import com.orhanobut.hawk.Hawk;
 
@@ -41,6 +42,7 @@ public class Config {
     public static final int SELECTED_IMAGE_STORE_BACKGROUND = 1012;
     public static final String PIN_CAP_2 = "PIN_CAP_2";
     public static final java.lang.String LIST_NOTI = "LIST_NOTI";
+    public static final java.lang.String SHOW_NOTI = "SHOW_NOTI";
     private static ArrayList<BackgroundImageLockScreen> backgroundImageLockScreens;
     private static Object allNoti;
     Context context;
@@ -130,30 +132,34 @@ public class Config {
         return backgroundImageLockScreens;
     }
 
-    public ArrayList<ItemNotification> getAllNoti(Context context) {
-
-        FlagListNoti flagListNoti;
+    public static ArrayList<ItemNotification> getAllNoti(Context context) {
+        Gson gson = new Gson();
+        Hawk.init(context).build();
+        ArrayList<ItemNotification> itemNotifications = null;
         try {
-            flagListNoti = (FlagListNoti) Hawk.get(Config.LIST_NOTI);
-        } catch (NullPointerException e) {
-            flagListNoti = new FlagListNoti(new ArrayList<ItemNotification>());
-            Hawk.put(Config.LIST_NOTI, flagListNoti);
+            itemNotifications = new ArrayList<>();
+            itemNotifications.addAll((ArrayList<ItemNotification>) gson.fromJson((String) Hawk.get(Config.LIST_NOTI), new TypeToken<ArrayList<ItemNotification>>() {
+            }.getType()));
+        } catch (Exception e) {
+            itemNotifications = new ArrayList<>();
+            Hawk.put(Config.LIST_NOTI, gson.toJson(itemNotifications));
         }
-        if (flagListNoti.getItemNotifications() == null) {
-            flagListNoti = new FlagListNoti(new ArrayList<ItemNotification>());
-            Hawk.put(Config.LIST_NOTI, flagListNoti);
-            return flagListNoti.getItemNotifications();
-        }
-        return flagListNoti.getItemNotifications();
+        return itemNotifications;
     }
 
-    public void removeNoti(Context context) {
-        getAllNoti(context).clear();
+    public static void removeNoti( Context context) {
+        Gson gson = new Gson();
+        ArrayList<ItemNotification> itemNotifications = null;
+        itemNotifications = new ArrayList<>();
+        Hawk.init(context).build();
+        Hawk.put(Config.LIST_NOTI, gson.toJson(itemNotifications));
     }
 
-    public void putNoti(ItemNotification itemNotification, Context context) {
+    public static void putNoti(ItemNotification itemNotification,Context context) {
+        Gson gson = new Gson();
         ArrayList<ItemNotification> itemNotifications = getAllNoti(context);
         itemNotifications.add(itemNotification);
-        Hawk.put(Config.LIST_NOTI, itemNotifications);
+        Hawk.init(context).build();
+        Hawk.put(Config.LIST_NOTI, gson.toJson(itemNotifications));
     }
 }

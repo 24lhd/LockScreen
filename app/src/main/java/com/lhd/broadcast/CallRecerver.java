@@ -52,7 +52,8 @@ public class CallRecerver extends CallMain {
     {
         Log.e(TAG,"onMissedCall "+number);
         Log.e(TAG,"onMissedCall "+ Config.getContactName(ctx,number));
-        new Config(ctx).putNoti(new ItemNotification("Missing call",Config.time24(start),"Bạn đã bỏ lỡ một cuộc gọi từ" , R.drawable.ic_call_missed_outgoing_red_500_36dp),ctx);
+         Config.putNoti(new ItemNotification("Missing call " +Config.getContactName(ctx,number),Config.time24(start),"Bạn đã bỏ lỡ một cuộc gọi" , R.drawable.ic_call_missed_outgoing_red_500_36dp),ctx);
+        Log.e("ken", "Missing call");
 
 
     }

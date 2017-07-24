@@ -29,7 +29,6 @@ public class SMSRecerver  extends BroadcastReceiver {
             if (bundle != null) {
                 try {
                     Object[] pdus = (Object[]) bundle.get("pdus");
-
                     msgs = new SmsMessage[pdus.length];
                     for (int i = 0; i < msgs.length; i++) {
                         msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
@@ -38,9 +37,10 @@ public class SMSRecerver  extends BroadcastReceiver {
                     }
                     Log.e(TAG, Config.getContactName(context,msg_from));
                     Log.e(TAG, msgBody);
-                    new Config(context).putNoti(new ItemNotification("SMS : " +Config.getContactName(context,msgBody),Config.time24(new Date()),msgBody, R.drawable.ic_message_red_500_36dp),context);
+                     Config.putNoti(new ItemNotification("SMS : " +Config.getContactName(context,msg_from),Config.time24(new Date()),"Một tin nhắn mới", R.drawable.ic_message_red_500_36dp),context);
+                    Log.e("ken", msgBody);
                 } catch (Exception e) {
-                    Log.e("Exception caught", e.getMessage());
+                    Log.e("ken", e.getMessage());
                     e.printStackTrace();
                 }
             }
